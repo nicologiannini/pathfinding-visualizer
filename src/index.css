@@ -1,0 +1,90 @@
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.hide {
+	display: None !important;
+}
+
+* {
+	font-family: 'Segue UI', sans-serif;
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #ebebeb;
+}
+
+.dash {
+	background-color: rgb(206, 206, 206);
+	height: 100vh;
+	display: flex;
+}
+
+.container {
+	width: 1100px;
+	height: 660px;
+	margin: auto;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+.cell {
+	display: inline-block;
+	background-color: #ffffff;
+	height: 20px;
+	width: 20px;
+	margin: 1px;
+	padding: 0;
+	color: #ffffff;
+}
+
+.innercell {
+	height: 20px;
+	width: 20px;
+	text-align: center;
+	line-height: 20px;
+}
+
+.blue {
+	background-color: #4726ff;
+	color: #4726ff;
+}
+
+.red {
+	background-color: #ff2626;
+	color: #ff2626;
+}
+
+.black {
+	background-color: #1d1d1d;
+	color: #1d1d1d;
+}
+
+.grey {
+	color: #1d1d1d;
+}
+
+.yellow {
+	background-color: #fffc3e !important;
+}
