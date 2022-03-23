@@ -2,6 +2,17 @@
 The main purpose of this project is to be a platform for visual comparison of pathfinding algorithms and show performance comparisons on similar maps.
 At the moment the field is fixed to be a 30x50 grid.
 
+At the moment it all seems to be standing up with react@17.0.2 despite the fact that my expertise on the subject is below zero.
+In the repository only the src directory is shared, for the rest you will need the standard web app scaffold.
+
+If you want to run **BFS** select the **A** setting from the control bar.
+
+If you want to run **DFS** select setting **B** from the control bar.
+
+For each run you need to indicate start(*blue*) and end(*red*) points, blocks are optional.
+
+Settings 1, 2, 3 load different fields of pre-populated blocks.
+
 ### breadth-first search
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/35083414/159812924-8f71804b-35a2-431b-8cd9-c686f883b6e2.gif)
 
