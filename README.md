@@ -5,7 +5,7 @@ In the repository only the src directory is shared, for the rest you will need t
 
 If you want to run **BFS** select the **A** setting from the control bar.
 
-If you want to run **DFS** select setting **B** from the control bar.
+If you want to run **DFS** select the **B** setting from the control bar.
 
 For each run you need to indicate start(*blue*) and end(*red*) points, blocks are optional.
 
