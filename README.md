@@ -10,4 +10,4 @@ At the moment the field is fixed to be a 30x50 grid.
 ### depth-first search
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/35083414/159812954-4097d2f8-bb02-4096-afab-762a1e0eea69.gif)
 
-<img src="https://user-images.githubusercontent.com/35083414/159812954-4097d2f8-bb02-4096-afab-762a1e0eea69.gif" width="250" height="125">
+<img src="https://user-images.githubusercontent.com/35083414/159812954-4097d2f8-bb02-4096-afab-762a1e0eea69.gif" width="400" height="225">
