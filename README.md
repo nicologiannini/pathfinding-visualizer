@@ -1,9 +1,7 @@
 # visual-pathfind
-The main purpose of this project is to be a platform for visual comparison of pathfinding algorithms and show performance comparisons on similar maps.
-At the moment the field is fixed to be a 30x50 grid.
 
 At the moment it all seems to be standing up with react@17.0.2 despite the fact that my expertise on the subject is below zero.
-In the repository only the src directory is shared, for the rest you will need the standard web app scaffold.
+In the repository only the src directory is shared, for the rest you will need the standard web app scaffold, the field is fixed to be a 30x50 grid.
 
 If you want to run **BFS** select the **A** setting from the control bar.
 
