@@ -1,6 +1,6 @@
 ::-webkit-scrollbar {
     width: 0px;
-    background: transparent; /* make scrollbar transparent */
+    background: transparent;
 }
 
 .unselectable {
@@ -21,16 +21,51 @@
 }
 
 body {
+	background-color: rgb(206, 206, 206);
 	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.header {
+.controls {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	color: #ebebeb;
+	color: #fff;
+	height: 10vh;
+}
+
+.console {
+	display: inline-block;
+	align-items: left;
+	justify-content: space-between;
+	color: rgb(0, 0, 0);
+	height: 15vh;
+	width: 100%;
+	font-size: 14px;
+	line-height: 10px;
+	font-family: 'Courier New', Courier, monospace;
+	overflow: auto;
+}
+
+.button {
+	cursor: pointer;
+}
+
+.value {
+	width: 30%;
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
 }
 
 .dash {
@@ -40,13 +75,20 @@ body {
 }
 
 .container {
+	max-width: 1260px;
+	margin-right: auto;
+	margin-left: auto;
+	min-height: 100vh;
+	min-width: 1100px;
+}
+
+.field {
 	width: 1100px;
-	height: 660px;
-	margin: auto;
-	-webkit-user-select: none; /* Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+/Edge */
-	user-select: none; /* Standard */
+	min-height: 660px;
+	margin: auto;   
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .cell {
