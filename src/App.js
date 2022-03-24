@@ -4,13 +4,14 @@ import Console from './components/Console';
 import sample1JSON from './data/sample_1.json';
 import sample2JSON from './data/sample_2.json';
 import sample3JSON from './data/sample_3.json';
-import { breadthFirstSearch, depthFirstSearch } from './pathfinders'
+import { breadthFirstSearch, depthFirstSearch, aStarSearch } from './pathfinders'
 import { useState, useEffect } from 'react';
 
 const App = () => {
 	const [status, setStatus] = useState(0);
 	const [grid, setGrid] = useState([]);
 	const [start, setStart] = useState(null);
+	const [end, setEnd] = useState(null);
 	const [track, setTrack] = useState({
 		path: [],
 		pathLength: 0,
@@ -53,6 +54,7 @@ const App = () => {
 			})
 			setGrid(field)
 			setStart(null)
+			setEnd(null)
 		}
 	}
 
@@ -85,6 +87,9 @@ const App = () => {
 			case 2:
 				depthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
 				break
+			case 3:
+				aStarSearch(N, M, status, grid, start, end, setTrack, setStatus)
+				break
 			default:
 				break
 		}
@@ -103,6 +108,7 @@ const App = () => {
 			case 1:
 				if(grid[y][x].status === "default"){
 					grid[y][x].status = "finish"
+					setEnd(grid[y][x])
 					setStatus(2)
 				}
 				break
