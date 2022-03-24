@@ -7,6 +7,8 @@ If you want to run **BFS** select the **A** setting from the control bar.
 
 If you want to run **DFS** select the **B** setting from the control bar.
 
+If you want to run **A*** select the **C** setting from the control bar.
+
 For each run you need to indicate start(*blue*) and end(*red*) points, blocks are optional.
 
 Settings 1, 2, 3 load different fields of pre-populated blocks.
@@ -16,3 +18,6 @@ Settings 1, 2, 3 load different fields of pre-populated blocks.
 
 ### depth-first search
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/35083414/159812954-4097d2f8-bb02-4096-afab-762a1e0eea69.gif)
+
+### a-star search
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/35083414/159975594-7faf376e-c4e8-4f7f-82e6-4bbb8716debd.gif)
