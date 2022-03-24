@@ -25,6 +25,9 @@ body {
 	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .controls {
@@ -32,7 +35,7 @@ body {
 	align-items: center;
 	justify-content: space-between;
 	color: #fff;
-	height: 10vh;
+	height: calc((100vh - 660px) / 2);
 }
 
 .console {
@@ -52,8 +55,15 @@ body {
 	cursor: pointer;
 }
 
+.group {
+	width: 10%;
+	justify-content: space-around;
+	display: flex;
+}
+
 .value {
 	width: 30%;
+	display: inline-block;
 }
 
 .center {
@@ -75,20 +85,17 @@ body {
 }
 
 .container {
-	max-width: 1260px;
+	max-width: 1050px;
 	margin-right: auto;
 	margin-left: auto;
 	min-height: 100vh;
-	min-width: 1100px;
+	min-width: 1050px;
 }
 
 .field {
-	width: 1100px;
+	width: 1050px;
 	min-height: 660px;
 	margin: auto;   
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 .cell {
@@ -96,7 +103,7 @@ body {
 	background-color: #ffffff;
 	height: 20px;
 	width: 20px;
-	margin: 1px;
+	margin: .5px;
 	padding: 0;
 	color: #ffffff;
 }
@@ -119,8 +126,8 @@ body {
 }
 
 .black {
-	background-color: #1d1d1d;
-	color: #1d1d1d;
+	background-color: rgb(206, 206, 206);
+	color: rgb(206, 206, 206);
 }
 
 .grey {

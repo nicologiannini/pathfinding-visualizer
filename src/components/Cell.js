@@ -10,8 +10,8 @@ const Cell = ({ id, x, y, status, triggerCell, triggerBound }) => {
     return (
         <div className="cell">           
             {cellStatus === "default" && <div className="innercell" key={id} id={id} onMouseOver={() => triggerCell(x, y, reloadCell)} onClick={() => triggerBound(x, y, reloadCell)}>+</div>}
-            {cellStatus === "start" && <div className="innercell blue" key={id} id={id} onMouseOver={() => triggerCell(x, y, reloadCell)}>+</div>}
-            {cellStatus === "finish" && <div className="innercell red" key={id} id={id} onMouseOver={() => triggerCell(x, y, reloadCell)}>+</div>}
+            {cellStatus === "start" && <div className="innercell blue" key={id} id={id}>+</div>}
+            {cellStatus === "finish" && <div className="innercell red" key={id} id={id}>+</div>}
             {cellStatus === "block" && <div className="innercell black" key={id} id={id} onMouseOver={() => triggerCell(x, y, reloadCell)}>+</div>}
         </div>
     )
