@@ -1,15 +1,22 @@
 import Cell from './components/Cell';
 import Controls from './components/Controls';
 import Console from './components/Console';
-import sampleJSON from './data/sample.json';
+import sample1JSON from './data/sample_1.json';
+import sample2JSON from './data/sample_2.json';
+import sample3JSON from './data/sample_3.json';
+import { breadthFirstSearch, depthFirstSearch } from './pathfinders'
 import { useState, useEffect } from 'react';
 
 const App = () => {
-	const [cost, setCost] = useState(0);
-	const [length, setLength] = useState(0);
-	const [grid, setGrid] = useState([]);
 	const [status, setStatus] = useState(0);
+	const [grid, setGrid] = useState([]);
 	const [start, setStart] = useState(null);
+	const [track, setTrack] = useState({
+		path: [],
+		pathLength: 0,
+		history: [],
+		historyLength: 0
+	});
 	const N = 30
 	const M = 50
 
@@ -38,119 +45,55 @@ const App = () => {
 				}
 				field.push(row)
 			}
+			setTrack({
+				path: [],
+				pathLength: 0,
+				history: [],
+				historyLength: 0
+			})
 			setGrid(field)
 			setStart(null)
 		}
 	}
 
-	const loadSample = () => {
+	const loadSample = (target) => {
 		if(status === 0){
-			setGrid(sampleJSON.field)
-			setStatus(2)
-			setStart(sampleJSON.start)
+			var sample = []
+			switch(target){
+				case 1:
+					sample = JSON.parse(JSON.stringify(sample1JSON))
+					break
+				case 2:
+					sample = JSON.parse(JSON.stringify(sample2JSON))
+					break
+				case 3:
+					sample = JSON.parse(JSON.stringify(sample3JSON))
+					break
+				default:
+					break
+			}
+			setGrid(sample)
+			setStatus(5)
 		}
 	}
 
-	const getPath = () => {
-		if(status === 2){
-			var check = []
-			var history = []
-			for(var i = 0; i < N; i++){
-				var row = []
-				for(var j = 0; j < M; j++){
-					var cell = {
-						status: false,
-					}
-					if(grid[i][j].status === "block" || grid[i][j].status === "start"){
-						cell.status = true
-					}
-					row.push(cell)
-				}
-				check.push(row)
-			}
-
-			var source = start
-			var queue = []
-			queue.push(source)
-
-			while(queue.length > 0){
-				var p = queue[0]
-				var next = ''
-				queue.shift()
-				history.push(p)
-
-				if(p.status === "finish"){
-					buildHistory(history, history.length, p.path)
-					setStatus(3)
-				}
-
-				if (p.y - 1 >= 0 && check[p.y - 1][p.x].status === false){
-					next = grid[p.y - 1][p.x]
-					next.path.push(p)
-					next.path = next.path.concat(p.path)
-					queue.push(next)
-					check[p.y - 1][p.x].status = true
-				}
-
-				if (p.x - 1 >= 0 && check[p.y][p.x - 1].status === false){
-					next = grid[p.y][p.x - 1]
-					next.path.push(p)
-					next.path = next.path.concat(p.path)
-					queue.push(next)
-					check[p.y][p.x - 1].status = true
-				}
-
-				if (p.y + 1 < N && check[p.y + 1][p.x].status === false){
-					next = grid[p.y + 1][p.x]
-					next.path.push(p)
-					next.path = next.path.concat(p.path)
-					queue.push(next)
-					check[p.y + 1][p.x].status = true
-				}
-				
-				if (p.x + 1 < M && check[p.y][p.x + 1].status === false){
-					next = grid[p.y][p.x + 1]
-					next.path.push(p)
-					next.path = next.path.concat(p.path)
-					queue.push(next)
-					check[p.y][p.x + 1].status = true
-				}
-			}
-		}
-	}
-
-	const buildHistory = (history, target, path) => {
-		history.shift()
-		history.pop()
-		for (let i = 0; i < history.length; i++) {
-			setTimeout(function() {
-				if(i % 10 === 0){
-					setCost(i)
-				}
-				var element = document.getElementById(history[i].id)
-				element.classList.add("grey")
-				if(i === target - 3){
-					setCost(i + 1)
-					buildPath(path)
-				}
-			}, i * 5)
-		}		
-	}
-
-	const buildPath = (path) => {
-		path.pop()
-		setLength(path.length)
-		for (let i = 0; i < path.length; i++) {
-			setTimeout(function() {
-				var element = document.getElementById(path[i].id)
-				element.classList.add("yellow")
-			}, i * 25)
+	const getPath = (finder) => {
+		switch(finder){
+			case 1:
+				breadthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
+				break
+			case 2:
+				depthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
+				break
+			default:
+				break
 		}
 	}
 
     const triggerBound = (x, y, reloadCell) => {
 		switch(status){
 			case 0:
+			case 5:
 				if(grid[y][x].status === "default"){
 					grid[y][x].status = "start"
 					setStart(grid[y][x])
@@ -193,8 +136,6 @@ const App = () => {
 					updateStatus={setStatus}
 					refresh={init}
 					loadSample={loadSample}
-					cost={cost}
-					length={length}
 				/>
 				{ status === 0 &&
 					<div className='field'>
@@ -230,9 +171,8 @@ const App = () => {
 						))}
 					</div>
 				}
-				<Console 
-					cost={cost}
-					length={length}
+				<Console
+				track={track}
 				/>
 			</div>
 		</div>
