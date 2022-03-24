@@ -147,7 +147,7 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
 
     if(status === 2){
         var check = []
-        var history = []
+        var history = [start]
         for(var i = 0; i < n; i++){
             var row = []
             for(var j = 0; j < m; j++){
