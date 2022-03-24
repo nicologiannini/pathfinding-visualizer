@@ -187,11 +187,9 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
                     if(!history.includes(successor)){
                         history.push(successor)
                     }
-                    successor.path = successor.path.concat(q.path)
                     successor.path.push(q)
+                    successor.path = successor.path.concat(q.path)
                     if(successor.status === 'finish'){
-                        successor.path.shift()
-                        successor.path.push(end)
                         var run = {
                             path: successor.path,
                             pathLength: successor.path.length,
@@ -212,10 +210,10 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
                         if(!alreadyTracked && !alreadyClosed){
                             openList.push(successor)
                         }
-                        closedList.push(successor)
                     }
                 }
             }
+            closedList.push(q)
         }
     }
 }
