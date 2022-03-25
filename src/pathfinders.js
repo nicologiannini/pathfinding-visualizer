@@ -142,19 +142,16 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
         var history = [start]
 
         while(openList.length > 0 && isRunning){
-            var min = Math.min.apply(Math, openList.map(node => node.f));
-            var q = openList.find(node => node.f === min);
+            let min = Math.min.apply(Math, openList.map(node => node.f));
+            let q = openList.find(node => node.f === min);
     
             openList = openList.filter(function(node){ 
                 return node.x !== q.x || node.y !== q.y;
             });
     
             var down = q.y + 1 < n && check[q.y + 1][q.x].status === false ? grid[q.y + 1][q.x] : null;
-    
             var up = q.y - 1 >= 0 && check[q.y - 1][q.x].status === false ? grid[q.y - 1][q.x] : null;
-    
             var right = q.x + 1 < m && check[q.y][q.x + 1].status === false ? grid[q.y][q.x + 1] : null;
-    
             var left = q.x - 1 >= 0 && check[q.y][q.x - 1].status === false ? grid[q.y][q.x - 1] : null;
     
             var successors = [down, up, right, left]
@@ -190,7 +187,7 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
                         var cross = Math.abs(dx1 * dy2 - dx2 * dy1)
                         f += cross * 0.001
 
-                        var node = {
+                        let node = {
                                 x: successor.x,
                                 y: successor.y,
                                 id: successor.id,
