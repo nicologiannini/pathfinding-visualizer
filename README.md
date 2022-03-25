@@ -1,7 +1,7 @@
 # visual-pathfind
 
 At the moment it all seems to be standing up with react@17.0.2 although my experience with it is very limited.
-In the repository only the src directory is shared, for the rest you will need the standard web app scaffold, the field is fixed to be a 30x50 grid.
+All pathfinding algorithms search in the 4 standard directions (*n, w, s ,e*), the field is fixed to be a 30x50 grid.
 
 If you want to run **BFS** select the **A** setting from the control bar.
 
