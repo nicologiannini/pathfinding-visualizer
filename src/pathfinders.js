@@ -170,15 +170,15 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
                 return node.x != q.x || node.y != q.y;
             });
     
-            var up = q.y + 1 < n && check[q.y + 1][q.x].status === false ? grid[q.y + 1][q.x] : null;
+            var down = q.y + 1 < n && check[q.y + 1][q.x].status === false ? grid[q.y + 1][q.x] : null;
     
-            var down = q.y - 1 >= 0 && check[q.y - 1][q.x].status === false ? grid[q.y - 1][q.x] : null;
+            var up = q.y - 1 >= 0 && check[q.y - 1][q.x].status === false ? grid[q.y - 1][q.x] : null;
     
             var right = q.x + 1 < m && check[q.y][q.x + 1].status === false ? grid[q.y][q.x + 1] : null;
     
             var left = q.x - 1 >= 0 && check[q.y][q.x - 1].status === false ? grid[q.y][q.x - 1] : null;
     
-            var successors = [up, down, right, left]
+            var successors = [down, up, right, left]
     
             for(var i = 0; i < 4; i++){
                 var successor = successors[i]
@@ -200,15 +200,31 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
                         setStatus(3)
                         isRunning = false
                     } else {
-                        successor.g = q.g + 1
-                        successor.h = Math.abs(end.x - successor.x) + Math.abs(end.y - successor.y)
-                        successor.f = successor.g + successor.h
+                        var g = q.g + 1
+                        var h = (Math.abs(end.x - successor.x) + Math.abs(end.y - successor.y))
+                        var f = g + h
+
+                        var dx1 = successor.x - end.x
+                        var dy1 = successor.y - end.y
+                        var dx2 = start.x - end.x
+                        var dy2 = start.y - end.y
+                        var cross = Math.abs(dx1 * dy2 - dx2 * dy1)
+                        f += cross * 0.001
+
+                        var node = {
+                                x: successor.x,
+                                y: successor.y,
+                                id: successor.id,
+                                path: successor.path,
+                                g: g,
+                                f: f
+                        }
     
-                        var alreadyTracked = openList.find(node => node.x === successor.x && node.y === successor.y && node.f < successor.f);
-                        var alreadyClosed = closedList.find(node => node.x === successor.x && node.y === successor.y && node.f < successor.f);
+                        var alreadyTracked = openList.find(item => item.x === node.x && item.y === node.y && item.f <= node.f);
+                        var alreadyClosed = closedList.find(item => item.x === node.x && item.y === node.y && item.f <= node.f);
     
                         if(!alreadyTracked && !alreadyClosed){
-                            openList.push(successor)
+                            openList.push(node)
                         }
                     }
                 }
