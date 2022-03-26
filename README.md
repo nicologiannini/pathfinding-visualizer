@@ -25,9 +25,3 @@ f += cross * 0.001
 The result is that this code will give a slight preference to a path that is along a straight line from start to destination.
 
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/35083414/159975594-7faf376e-c4e8-4f7f-82e6-4bbb8716debd.gif)
-
-### breadth-first search
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/35083414/159812924-8f71804b-35a2-431b-8cd9-c686f883b6e2.gif)
-
-### depth-first search
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/35083414/159812954-4097d2f8-bb02-4096-afab-762a1e0eea69.gif)
