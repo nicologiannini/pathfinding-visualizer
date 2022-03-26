@@ -83,26 +83,26 @@ export const depthFirstSearch = (n, m, status, grid, start, setTrack, setStatus)
     const search = (p) =>{
         history.push(p)
         if(p.status !== 'finish'){
-            var neighbour = []
+            var neighbors = []
             if (p.y + 1 < n && check[p.y + 1][p.x].status === false){
-                neighbour.push(grid[p.y + 1][p.x])
+                neighbors.push(grid[p.y + 1][p.x])
             }
             if (p.x + 1 < m && check[p.y][p.x + 1].status === false){
-                neighbour.push(grid[p.y][p.x + 1])
+                neighbors.push(grid[p.y][p.x + 1])
             }
             if (p.y - 1 >= 0 && check[p.y - 1][p.x].status === false){
-                neighbour.push(grid[p.y - 1][p.x])
+                neighbors.push(grid[p.y - 1][p.x])
             }
             if (p.x - 1 >= 0 && check[p.y][p.x - 1].status === false){
-                neighbour.push(grid[p.y][p.x - 1])
+                neighbors.push(grid[p.y][p.x - 1])
             }
             
             check[p.y][p.x].status = true
-            var nLength = neighbour.length
+            var nLength = neighbors.length
             var i = 0
 
             while(i < nLength && isRunning){
-                var next = neighbour[i]
+                var next = neighbors[i]
                 next.path.push(p)
                 next.path = next.path.concat(p.path)
                 search(next)
@@ -154,21 +154,21 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
             var right = q.x + 1 < m && check[q.y][q.x + 1].status === false ? grid[q.y][q.x + 1] : null;
             var left = q.x - 1 >= 0 && check[q.y][q.x - 1].status === false ? grid[q.y][q.x - 1] : null;
     
-            var successors = [down, up, right, left]
+            var neighbors = [down, up, right, left]
     
             for(var i = 0; i < 4; i++){
-                var successor = successors[i]
-                if(successor){
-                    successor.path = []
-                    if(!history.includes(successor)){
-                        history.push(successor)
+                var next = neighbors[i]
+                if(next){
+                    next.path = []
+                    if(!history.includes(next)){
+                        history.push(next)
                     }
-                    successor.path.push(q)
-                    successor.path = successor.path.concat(q.path)
-                    if(successor.status === 'finish'){
+                    next.path.push(q)
+                    next.path = next.path.concat(q.path)
+                    if(next.status === 'finish'){
                         var run = {
-                            path: successor.path,
-                            pathLength: successor.path.length,
+                            path: next.path,
+                            pathLength: next.path.length,
                             history: history,
                             historyLength: history.length
                         }
@@ -177,21 +177,21 @@ export const aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus)
                         isRunning = false
                     } else {
                         var g = q.g + 1
-                        var h = (Math.abs(end.x - successor.x) + Math.abs(end.y - successor.y))
+                        var h = (Math.abs(end.x - next.x) + Math.abs(end.y - next.y))
                         var f = g + h
 
-                        var dx1 = successor.x - end.x
-                        var dy1 = successor.y - end.y
-                        var dx2 = start.x - end.x
-                        var dy2 = start.y - end.y
+                        var dx1 = start.x - end.x
+                        var dy1 = start.y - end.y
+                        var dx2 = next.x - end.x
+                        var dy2 = next.y - end.y
                         var cross = Math.abs(dx1 * dy2 - dx2 * dy1)
                         f += cross * 0.001
 
                         let node = {
-                                x: successor.x,
-                                y: successor.y,
-                                id: successor.id,
-                                path: successor.path,
+                                x: next.x,
+                                y: next.y,
+                                id: next.id,
+                                path: next.path,
                                 g: g,
                                 f: f
                         }
