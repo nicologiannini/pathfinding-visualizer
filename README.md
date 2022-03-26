@@ -14,7 +14,6 @@ Settings 1, 2, 3 load different fields of pre-populated blocks.
 
 ### a-star search
 In some grid maps there are many paths with the same length, A* could explore all the paths with the same value f (the variable it uses for searching), instead of just one. A quick way to solve this problem is to adjust the heuristic part of f.
-
 ```JavaScript
 var dx1 = start.x - end.x
 var dy1 = start.y - end.y
@@ -23,8 +22,8 @@ var dy2 = successor.y - end.y
 var cross = Math.abs(dx1 * dy2 - dx2 * dy1)
 f += cross * 0.001
 ```
-  
 The result is that this code will give a slight preference to a path that is along a straight line from start to destination.
+
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/35083414/159975594-7faf376e-c4e8-4f7f-82e6-4bbb8716debd.gif)
 
 ### breadth-first search
