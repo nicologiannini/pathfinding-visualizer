@@ -13,7 +13,7 @@ For each run you need to indicate start(*blue*) and end(*red*) points, blocks ar
 Settings 1, 2, 3 load different fields of pre-populated blocks.
 
 ### A-star search
-In some grid maps there are many paths with the same length, A* could explore all the paths with the same value f (*the variable it uses for searching*), instead of just one. A quick way to solve this problem is to add a (tie-breaking)[http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#breaking-ties] cross-product to heuristic.
+In some grid maps there are many paths with the same length, A* could explore all the paths with the same value f (*the variable it uses for searching*), instead of just one. A quick way to solve this problem is to add a [tie-breaking](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#breaking-ties) cross-product to heuristic.
 ```JavaScript
 var dx1 = start.x - end.x
 var dy1 = start.y - end.y
