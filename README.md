@@ -17,8 +17,8 @@ In some grid maps there are many paths with the same length, A* could explore al
 ```JavaScript
 var dx1 = start.x - end.x
 var dy1 = start.y - end.y
-var dx2 = successor.x - end.x
-var dy2 = successor.y - end.y
+var dx2 = next.x - end.x
+var dy2 = next.y - end.y
 var cross = Math.abs(dx1 * dy2 - dx2 * dy1)
 f += cross * 0.001
 ```
