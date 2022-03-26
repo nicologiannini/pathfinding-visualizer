@@ -12,7 +12,7 @@ For each run you need to indicate start(*blue*) and end(*red*) points, blocks ar
 
 Settings 1, 2, 3 load different fields of pre-populated blocks.
 
-### a-star search
+### A-star search
 In some grid maps there are many paths with the same length, A* could explore all the paths with the same value f (the variable it uses for searching), instead of just one. A quick way to solve this problem is to adjust the heuristic part of f.
 ```JavaScript
 var dx1 = start.x - end.x
