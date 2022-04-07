@@ -4,7 +4,7 @@ import Console from './components/Console';
 import sample1JSON from './data/sample_1.json';
 import sample2JSON from './data/sample_2.json';
 import sample3JSON from './data/sample_3.json';
-import { breadthFirstSearch, depthFirstSearch, aStarSearch } from './pathfinders'
+import Pathfinder from './pathfinders'
 import { useState, useEffect } from 'react';
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
 	});
 	const N = 30
 	const M = 50
+	const pathfinder = new Pathfinder()
 
 	var mouseDown = false
 	document.onmousedown = function() {
@@ -82,13 +83,13 @@ const App = () => {
 	const getPath = (finder) => {
 		switch(finder){
 			case 1:
-				breadthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
+				pathfinder.breadthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
 				break
 			case 2:
-				depthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
+				pathfinder.depthFirstSearch(N, M, status, grid, start, setTrack, setStatus)
 				break
 			case 3:
-				aStarSearch(N, M, status, grid, start, end, setTrack, setStatus)
+				pathfinder.aStarSearch(N, M, status, grid, start, end, setTrack, setStatus)
 				break
 			default:
 				break
@@ -178,7 +179,7 @@ const App = () => {
 					</div>
 				}
 				<Console
-				track={track}
+					track={track}
 				/>
 			</div>
 		</div>
