@@ -4,7 +4,7 @@ import Console from './components/Console';
 import sample1JSON from './data/sample_1.json';
 import sample2JSON from './data/sample_2.json';
 import sample3JSON from './data/sample_3.json';
-import Pathfinder from './pathfinders';
+import Pathfinders from './pathfinders';
 import { useState, useEffect } from 'react';
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
     });
     const N = 30;
     const M = 50;
-    const pathfinder = new Pathfinder();
+    const PATHFINDERS = new Pathfinders();
 
     var mouseDown = false;
     document.onmousedown = function () {
@@ -83,7 +83,7 @@ const App = () => {
     const getPath = (finder) => {
         switch (finder) {
             case 1:
-                pathfinder.breadthFirstSearch(
+                PATHFINDERS.breadthFirstSearch(
                     N,
                     M,
                     status,
@@ -94,7 +94,7 @@ const App = () => {
                 );
                 break;
             case 2:
-                pathfinder.depthFirstSearch(
+                PATHFINDERS.depthFirstSearch(
                     N,
                     M,
                     status,
@@ -105,7 +105,7 @@ const App = () => {
                 );
                 break;
             case 3:
-                pathfinder.aStarSearch(
+                PATHFINDERS.aStarSearch(
                     N,
                     M,
                     status,

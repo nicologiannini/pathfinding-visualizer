@@ -1,4 +1,4 @@
-export class Pathfinder {
+export class Pathfinders {
     constructor() {}
 
     createCheckGrid = (n, m, grid) => {
@@ -243,4 +243,4 @@ export class Pathfinder {
     };
 }
 
-export default Pathfinder;
+export default Pathfinders;
