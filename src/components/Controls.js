@@ -6,10 +6,23 @@ const Controls = ({
     updateStatus,
     refresh,
     loadSample,
-    generateGrid
+    generateGrid,
+    setTrack,
+    cleanGrid
 }) => {
     const [finder, setFinder] = useState(1);
     const [sample, setSample] = useState({ seed: 0 });
+
+    const clear = () => {
+        cleanGrid();
+        setTrack({
+            path: [],
+            pathLength: 0,
+            history: [],
+            historyLength: 0,
+        });
+        updateStatus(2);
+    };
 
     const resetAndGenerate = () => {
         reset();
@@ -35,70 +48,89 @@ const Controls = ({
     }, [sample]);
 
     return (
-        <div className="controls">
-            <button className="value left button" onClick={() => getPath(finder)}>
-                RUN
-            </button>
-            <div className="group">
-                {finder === 1 && (
+        <div className="controls-cont">
+            <div className="controls">
+                <div className="group left">
                     <button
-                        id="finder"
-                        className="value center button text-blue"
-                        onClick={() => setFinder(2)}
-                    >
-                        A
-                    </button>
-                )}
-                {finder === 2 && (
-                    <button
-                        id="finder"
                         className="value center button"
-                        onClick={() => setFinder(3)}
+                        onClick={() => resetAndGenerate()}
                     >
-                        B
+                        Generate
                     </button>
-                )}
-                {finder === 3 && (
+                </div>
+                <div className="group left">
+                    {finder === 1 && (
+                        <button
+                            id="finder"
+                            className="value center button text-blue"
+                            onClick={() => setFinder(2)}
+                        >
+                            Breadth-first search
+                        </button>
+                    )}
+                    {finder === 2 && (
+                        <button
+                            id="finder"
+                            className="value center button"
+                            onClick={() => setFinder(3)}
+                        >
+                            Depth-first search
+                        </button>
+                    )}
+                    {finder === 3 && (
+                        <button
+                            id="finder"
+                            className="value center button"
+                            onClick={() => setFinder(1)}
+                        >
+                            A* search
+                        </button>
+                    )}
+                </div>
+                <div className="group hide">
                     <button
-                        id="finder"
                         className="value center button"
-                        onClick={() => setFinder(1)}
+                        onClick={() => resetAndLoad(1)}
                     >
-                        C
+                        1
                     </button>
-                )}
+                    <button
+                        className="value center button"
+                        onClick={() => resetAndLoad(2)}
+                    >
+                        2
+                    </button>
+                    <button
+                        className="value center button"
+                        onClick={() => resetAndLoad(3)}
+                    >
+                        3
+                    </button>
+                </div>
+                <div className="group">
+                    <button
+                        className="value left button btn-black"
+                        onClick={() => getPath(finder)}
+                        id='visualize'
+                    >
+                        Visualize
+                    </button>
+                </div>
+                <div className="group right">
+                    <button
+                        className="value center button"
+                        onClick={() => clear()}
+                    >
+                        Clear
+                    </button>
+                </div>
+                <div className="group right">
+                    <button className="value right button" onClick={() => reset()}>
+                        Reset
+                    </button>
+                </div>
             </div>
-            <div className="group hide">
-                <button
-                    className="value center button"
-                    onClick={() => resetAndLoad(1)}
-                >
-                    1
-                </button>
-                <button
-                    className="value center button"
-                    onClick={() => resetAndLoad(2)}
-                >
-                    2
-                </button>
-                <button
-                    className="value center button"
-                    onClick={() => resetAndLoad(3)}
-                >
-                    3
-                </button>
-            </div>
-            <div className="group">
-                <button
-                    className="value center button"
-                    onClick={() => resetAndGenerate()}
-                >
-                    GENERATE
-                </button>
-            </div>
-            <button className="value right button" onClick={() => reset()}>
-                RESET
-            </button>
+            <div className="controls-info"></div>
         </div>
     );
 };

@@ -1,14 +1,30 @@
 import React from 'react';
 
 const Console = ({ track }) => {
-    if(track.historyLength > 0){
-
-        var buttons = document.getElementsByClassName("button");
-        Array.prototype.slice.call( buttons, 0 ).forEach(function(button){
+    const disableButton = () => {
+        var buttons = document.getElementsByClassName('button');
+        Array.prototype.slice.call(buttons, 0).forEach(function (button) {
             button.setAttribute('disabled', '');
-            button.classList.add('disabled')
-        })
+            button.classList.add('disabled');
+            if (button.id === 'visualize') {
+                button.classList.add('btn-disabled');
+            }
+        });
+    };
 
+    const enableButton = () => {
+        var buttons = document.getElementsByClassName('button');
+        Array.prototype.slice.call(buttons, 0).forEach(function (button) {
+            button.removeAttribute('disabled');
+            button.classList.remove('disabled');
+            if (button.id === 'visualize') {
+                button.classList.remove('btn-disabled');
+            }
+        });
+    };
+
+    if (track.historyLength > 0) {
+        disableButton();
 
         for (let i = 1; i < track.historyLength - 1; i++) {
             setTimeout(function () {
@@ -17,19 +33,30 @@ const Console = ({ track }) => {
                 if (i === track.historyLength - 2) {
                     for (let i = 0; i < track.pathLength - 1; i++) {
                         setTimeout(function () {
-                            var element = document.getElementById(track.path[i].id);
+                            var element = document.getElementById(
+                                track.path[i].id
+                            );
                             element.classList.add('yellow');
-                            if(i === track.pathLength - 2){
-                                Array.prototype.slice.call( buttons, 0 ).forEach(function(button){
-                                    button.removeAttribute('disabled');
-                                    button.classList.remove('disabled')
-                                })
+                            if (i === track.pathLength - 2) {
+                                enableButton();
                             }
                         }, i * 25);
                     }
                 }
             }, i * 10);
         }
+    } else {
+        disableButton();
+        var elements = [];
+        elements = document.getElementsByClassName('grey');
+        Array.prototype.slice.call(elements, 0).forEach(function (element) {
+            element.classList.remove('grey');
+        });
+        elements = document.getElementsByClassName('yellow');
+        Array.prototype.slice.call(elements, 0).forEach(function (element) {
+            element.classList.remove('yellow');
+        });
+        enableButton();
     }
 
     return <div className="console"></div>;

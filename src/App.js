@@ -34,8 +34,8 @@ const App = () => {
     };
 
     if (window.screen.availWidth < 600 && N !== 15 && M !== 15) {
-        setN(15)
-        setM(15)
+        setN(15);
+        setM(15);
     }
 
     const init = (refresh) => {
@@ -65,6 +65,14 @@ const App = () => {
             setStart(null);
             setEnd(null);
         }
+    };
+
+    const cleanGrid = () => {
+        grid.forEach(function(row){
+            row.forEach(function(item){
+                item.path = []
+            })
+        })
     };
 
     const loadSample = (target) => {
@@ -190,7 +198,11 @@ const App = () => {
         <div className="dash">
             <div
                 className="container"
-                style={{ minWidth: M * 20 + 2, maxWidth: M * 20 + 2, minHeight: N * 20 + 2 }}
+                style={{
+                    minWidth: M * 20 + 2,
+                    maxWidth: M * 20 + 2,
+                    minHeight: N * 20 + 2,
+                }}
             >
                 <Controls
                     getPath={getPath}
@@ -198,6 +210,8 @@ const App = () => {
                     refresh={init}
                     loadSample={loadSample}
                     generateGrid={generateGrid}
+                    cleanGrid={cleanGrid}
+                    setTrack={setTrack}
                 />
                 {status === 0 && (
                     <div
