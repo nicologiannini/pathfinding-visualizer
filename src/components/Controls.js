@@ -1,71 +1,104 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const Controls = ({ getPath, updateStatus, refresh, loadSample }) => {
+const Controls = ({
+    getPath,
+    updateStatus,
+    refresh,
+    loadSample,
+    generateGrid
+}) => {
     const [finder, setFinder] = useState(1);
+    const [sample, setSample] = useState({ seed: 0 });
 
-    const clear = () => {
+    const resetAndGenerate = () => {
+        reset();
+        setSample({ seed: 'random' });
+    };
+
+    const resetAndLoad = (target) => {
+        reset();
+        setSample({ seed: target });
+    };
+
+    const reset = () => {
         refresh(true);
         updateStatus(0);
     };
 
+    useEffect(() => {
+        if (sample.seed !== 0) {
+            if (sample.seed !== 'random') {
+                loadSample(sample.seed);
+            } else generateGrid();
+        }
+    }, [sample]);
+
     return (
         <div className="controls">
-            <h2 className="value left button" onClick={() => getPath(finder)}>
+            <button className="value left button" onClick={() => getPath(finder)}>
                 RUN
-            </h2>
+            </button>
             <div className="group">
                 {finder === 1 && (
-                    <h4
+                    <button
                         id="finder"
                         className="value center button text-blue"
                         onClick={() => setFinder(2)}
                     >
                         A
-                    </h4>
+                    </button>
                 )}
                 {finder === 2 && (
-                    <h4
+                    <button
                         id="finder"
                         className="value center button"
                         onClick={() => setFinder(3)}
                     >
                         B
-                    </h4>
+                    </button>
                 )}
                 {finder === 3 && (
-                    <h4
+                    <button
                         id="finder"
                         className="value center button"
                         onClick={() => setFinder(1)}
                     >
                         C
-                    </h4>
+                    </button>
                 )}
             </div>
-            <div className="group">
-                <h4
+            <div className="group hide">
+                <button
                     className="value center button"
-                    onClick={() => loadSample(1)}
+                    onClick={() => resetAndLoad(1)}
                 >
                     1
-                </h4>
-                <h4
+                </button>
+                <button
                     className="value center button"
-                    onClick={() => loadSample(2)}
+                    onClick={() => resetAndLoad(2)}
                 >
                     2
-                </h4>
-                <h4
+                </button>
+                <button
                     className="value center button"
-                    onClick={() => loadSample(3)}
+                    onClick={() => resetAndLoad(3)}
                 >
                     3
-                </h4>
+                </button>
             </div>
-            <h4 className="value right button" onClick={() => clear()}>
-                CLEAR
-            </h4>
+            <div className="group">
+                <button
+                    className="value center button"
+                    onClick={() => resetAndGenerate()}
+                >
+                    GENERATE
+                </button>
+            </div>
+            <button className="value right button" onClick={() => reset()}>
+                RESET
+            </button>
         </div>
     );
 };

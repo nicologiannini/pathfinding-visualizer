@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Cell = ({ id, x, y, status, triggerCell, triggerBound }) => {
+const Cell = ({ id, x, y, status, triggerClick, triggerDrag }) => {
     const [cellStatus, setCellStatus] = useState(status);
 
     const reloadCell = (target) => {
@@ -14,20 +14,30 @@ const Cell = ({ id, x, y, status, triggerCell, triggerBound }) => {
                     className="innercell"
                     key={id}
                     id={id}
-                    onMouseOver={() => triggerCell(x, y, reloadCell)}
-                    onClick={() => triggerBound(x, y, reloadCell)}
+                    onMouseOver={() => triggerDrag(x, y, reloadCell)}
+                    onClick={() => triggerClick(x, y, reloadCell)}
                 >
-                    +
+                    •
                 </div>
             )}
             {cellStatus === 'start' && (
-                <div className="innercell blue" key={id} id={id}>
-                    +
+                <div
+                    className="innercell start"
+                    key={id}
+                    id={id}
+                    onClick={() => triggerClick(x, y, reloadCell)}
+                >
+                    ⯁
                 </div>
             )}
             {cellStatus === 'finish' && (
-                <div className="innercell red" key={id} id={id}>
-                    +
+                <div
+                    className="innercell finish"
+                    key={id}
+                    id={id}
+                    onClick={() => triggerClick(x, y, reloadCell)}
+                >
+                    ⯁
                 </div>
             )}
             {cellStatus === 'block' && (
@@ -35,9 +45,10 @@ const Cell = ({ id, x, y, status, triggerCell, triggerBound }) => {
                     className="innercell black"
                     key={id}
                     id={id}
-                    onMouseOver={() => triggerCell(x, y, reloadCell)}
+                    onMouseOver={() => triggerDrag(x, y, reloadCell)}
+                    onClick={() => triggerClick(x, y, reloadCell)}
                 >
-                    +
+                    •
                 </div>
             )}
         </div>
