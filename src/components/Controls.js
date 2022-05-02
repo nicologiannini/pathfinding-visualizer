@@ -6,7 +6,6 @@ const Controls = ({
     getPath,
     updateStatus,
     refresh,
-    loadSample,
     generateGrid,
     setTrack,
     cleanGrid,
@@ -32,11 +31,6 @@ const Controls = ({
         setSample({ seed: 'random' });
     };
 
-    const resetAndLoad = (target) => {
-        reset();
-        setSample({ seed: target });
-    };
-
     const reset = () => {
         refresh(true);
         updateStatus(0);
@@ -44,9 +38,7 @@ const Controls = ({
 
     useEffect(() => {
         if (sample.seed !== 0) {
-            if (sample.seed !== 'random') {
-                loadSample(sample.seed);
-            } else generateGrid();
+            generateGrid();
         }
     }, [sample]);
 
@@ -89,26 +81,6 @@ const Controls = ({
                             A* search
                         </button>
                     )}
-                </div>
-                <div className="group hide mobile-hide">
-                    <button
-                        className="value center button"
-                        onClick={() => resetAndLoad(1)}
-                    >
-                        1
-                    </button>
-                    <button
-                        className="value center button"
-                        onClick={() => resetAndLoad(2)}
-                    >
-                        2
-                    </button>
-                    <button
-                        className="value center button"
-                        onClick={() => resetAndLoad(3)}
-                    >
-                        3
-                    </button>
                 </div>
                 <div className="group">
                     <button

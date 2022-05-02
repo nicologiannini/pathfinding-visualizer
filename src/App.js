@@ -1,10 +1,6 @@
 import Cell from './components/Cell';
 import Controls from './components/Controls';
 import Console from './components/Console';
-import sample1JSON from './data/sample_1.json';
-import sample2JSON from './data/sample_2.json';
-import sample3JSON from './data/sample_3.json';
-import sampleJSON from './data/sample.json';
 import Pathfinders from './pathfinders';
 import Generator from './generator';
 import { useState, useEffect } from 'react';
@@ -73,27 +69,6 @@ const App = () => {
                 item.path = []
             })
         })
-    };
-
-    const loadSample = (target) => {
-        if (status === 0) {
-            var sample = [];
-            switch (target) {
-                case 1:
-                    sample = JSON.parse(JSON.stringify(sampleJSON));
-                    break;
-                case 2:
-                    sample = JSON.parse(JSON.stringify(sample2JSON));
-                    break;
-                case 3:
-                    sample = JSON.parse(JSON.stringify(sample3JSON));
-                    break;
-                default:
-                    break;
-            }
-            setGrid(sample);
-            setStatus(5);
-        }
     };
 
     const getPath = (finder) => {
@@ -210,7 +185,6 @@ const App = () => {
                     getPath={getPath}
                     updateStatus={setStatus}
                     refresh={init}
-                    loadSample={loadSample}
                     generateGrid={generateGrid}
                     cleanGrid={cleanGrid}
                     setTrack={setTrack}

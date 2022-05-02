@@ -76,6 +76,10 @@ input[type='reset'] {
     opacity: 0.8;
 }
 
+.poster-button:active {
+    opacity: 0.8;
+}
+
 * {
     text-decoration: none;
 }
@@ -100,6 +104,8 @@ body {
     flex-direction: column;
     justify-content: space-around;
     font-family: 'Roboto Slab', sans-serif;
+    min-height: 140px;
+    padding: 32px 0;
 }
 
 .controls {
@@ -292,7 +298,111 @@ body {
     justify-content: center;
 }
 
-@media only screen and (max-width: 600px) {
+
+/* Poster */
+
+.poster-cont {
+    font-family: 'Roboto Slab', sans-serif;
+    font-weight: 300;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.poster {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    min-width: 600px;
+    max-width: 600px;
+    max-height: 800px;
+    min-height: 400px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.poster-content{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 90%;
+    align-items: center;
+    margin: auto 0;
+}
+
+.poster-heading {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 2.5% 0;
+}
+
+.poster-title {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.poster-number {
+    font-size: 16px;
+}
+
+.poster-body {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.poster-img-cont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.poster-img {
+    height: 60px;
+}
+
+.poster-nav {
+    display: flex;
+    height: 10%;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto 0;
+}
+
+.poster-nav-option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.poster-button {
+    background-color: #111;
+    color: #fff !important;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin: 16px 8px;
+    font-size: 15px;
+}
+
+.poster-button:hover {
+    cursor: pointer;
+}
+
+
+
+@media only screen and (max-width: 660px) {
     .controls-info {
         display: none;
     }
