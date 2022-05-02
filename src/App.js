@@ -202,9 +202,11 @@ const App = () => {
                     minWidth: M * 20 + 2,
                     maxWidth: M * 20 + 2,
                     minHeight: N * 20 + 2,
+                    maxHeight: 980
                 }}
             >
                 <Controls
+                    status={status}
                     getPath={getPath}
                     updateStatus={setStatus}
                     refresh={init}

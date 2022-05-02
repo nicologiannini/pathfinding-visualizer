@@ -17,7 +17,7 @@ const Cell = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     onMouseOver={() => triggerDrag(x, y, reloadCell)}
                     onClick={() => triggerClick(x, y, reloadCell)}
                 >
-                    •
+                    <span className='block'>•</span>
                 </div>
             )}
             {cellStatus === 'start' && (
@@ -27,7 +27,7 @@ const Cell = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     id={id}
                     onClick={() => triggerClick(x, y, reloadCell)}
                 >
-                    ⯁
+                    <span className='block'>⯁</span>
                 </div>
             )}
             {cellStatus === 'finish' && (
@@ -37,7 +37,7 @@ const Cell = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     id={id}
                     onClick={() => triggerClick(x, y, reloadCell)}
                 >
-                    ⯁
+                    <span className='block'>⯁</span>
                 </div>
             )}
             {cellStatus === 'block' && (
@@ -48,7 +48,7 @@ const Cell = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     onMouseOver={() => triggerDrag(x, y, reloadCell)}
                     onClick={() => triggerClick(x, y, reloadCell)}
                 >
-                    •
+                    <span className='block'>•</span>
                 </div>
             )}
         </div>

@@ -1,20 +1,83 @@
+#loader-1:before,
+#loader-1:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border: 5px solid transparent;
+    border-top-color: #ff4713;
+}
+
+#loader-1:before {
+    z-index: 100;
+    animation: spin 1s infinite;
+}
+
+#loader-1:after {
+    border: 5px solid transparent;
+}
+
+.loader {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 auto;
+    transition: all .1s ease;
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+    80% {
+        transform: scale(1);
+    }
+}
+
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
 }
 
-button, input[type="submit"], input[type="reset"] {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+button,
+input[type='submit'],
+input[type='reset'] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.button:active {
+    opacity: 0.8;
 }
 
 * {
-    font-family: 'Segue UI', sans-serif;
+    text-decoration: none;
 }
 
 .hide {
@@ -36,6 +99,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    font-family: 'Roboto Slab', sans-serif;
 }
 
 .controls {
@@ -44,6 +108,7 @@ body {
     justify-content: space-between;
     color: #111;
     margin: auto 0;
+    height: 60px;
 }
 
 .console {
@@ -62,24 +127,30 @@ body {
 .button {
     cursor: pointer;
     font-weight: 500;
+    transition: all .1s ease;
 }
 
 .btn-black {
-    padding: 8px 16px;
     background-color: #111;
     color: #fff !important;
     border-radius: 15px;
+    padding: 8px 16px;
 }
 
 .group {
-    width: 10%;
     justify-content: space-around;
     display: flex;
     width: 20%;
 }
 
+.loader-cont {
+    display: inline-block;
+    height: 37px;
+}
+
 .value {
     display: inline-block;
+    padding: 8px 16px;
 }
 
 .center {
@@ -95,7 +166,7 @@ body {
 }
 
 .dash {
-    background-color: #FFF;
+    background-color: #fff;
     height: 100vh;
     display: flex;
 }
@@ -110,7 +181,6 @@ body {
 }
 
 .field {
-    margin: auto;
     border: 1px solid #111;
     background-color: #111;
 }
@@ -131,6 +201,38 @@ body {
     line-height: 20px;
 }
 
+.controls-info {
+    display: flex;
+    height: 20px;
+    justify-content: left;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.info-text {
+    text-align: center;
+    line-height: 18px;
+    font-size: 14px;
+    margin-right: 25px;
+}
+
+.info-item {
+    border: 1px solid #111;
+}
+
+.info-cell {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    padding: 0;
+}
+
+.hint-text {
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+}
+
 .start {
     color: #ff4713;
 }
@@ -144,21 +246,38 @@ body {
     color: #111;
 }
 
+.white {
+    color: #fff;
+}
+
 .grey {
     color: #000;
+    animation-fill-mode: backwards;
+    animation-name: bounce;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
 }
 
 .yellow {
-    background-color: #ff461370 !important;
+    background-color: #ff461370;
+}
+
+.path-found {
+    color: #000;
+    background-color: #ff461370;
 }
 
 .disabled {
-    color: rgb(163, 163, 163);
+    color: #ccc;
     cursor: auto;
 }
 
+.block {
+    display: block;
+}
+
 .btn-disabled {
-    background-color: #ff4713 !important;
+    background-color: #ccc !important;
 }
 
 .left {
@@ -171,4 +290,14 @@ body {
 
 .center {
     justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .controls-info {
+        display: none;
+    }
+
+    .mobile-hide {
+        display: none;
+    }
 }

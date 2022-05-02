@@ -2,26 +2,29 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 const Controls = ({
+    status,
     getPath,
     updateStatus,
     refresh,
     loadSample,
     generateGrid,
     setTrack,
-    cleanGrid
+    cleanGrid,
 }) => {
     const [finder, setFinder] = useState(1);
     const [sample, setSample] = useState({ seed: 0 });
 
     const clear = () => {
-        cleanGrid();
-        setTrack({
-            path: [],
-            pathLength: 0,
-            history: [],
-            historyLength: 0,
-        });
-        updateStatus(2);
+        if (status == 3) {
+            cleanGrid();
+            setTrack({
+                path: [],
+                pathLength: 0,
+                history: [],
+                historyLength: 0,
+            });
+            updateStatus(2);
+        }
     };
 
     const resetAndGenerate = () => {
@@ -55,10 +58,10 @@ const Controls = ({
                         className="value center button"
                         onClick={() => resetAndGenerate()}
                     >
-                        Generate
+                        Generate maze
                     </button>
                 </div>
-                <div className="group left">
+                <div className="group left mobile-hide">
                     {finder === 1 && (
                         <button
                             id="finder"
@@ -87,7 +90,7 @@ const Controls = ({
                         </button>
                     )}
                 </div>
-                <div className="group hide">
+                <div className="group hide mobile-hide">
                     <button
                         className="value center button"
                         onClick={() => resetAndLoad(1)}
@@ -111,26 +114,69 @@ const Controls = ({
                     <button
                         className="value left button btn-black"
                         onClick={() => getPath(finder)}
-                        id='visualize'
+                        id="visualize"
                     >
                         Visualize
                     </button>
+                    <div className="hide" id="loader-cont">
+                        <div className="loader" id="loader-1"></div>
+                    </div>
                 </div>
-                <div className="group right">
+                <div className="group right mobile-hide">
                     <button
                         className="value center button"
                         onClick={() => clear()}
                     >
-                        Clear
+                        Clear field
                     </button>
                 </div>
                 <div className="group right">
-                    <button className="value right button" onClick={() => reset()}>
-                        Reset
+                    <button
+                        className="value right button"
+                        onClick={() => reset()}
+                    >
+                        Reset field
                     </button>
                 </div>
             </div>
-            <div className="controls-info"></div>
+            <div className="controls-info">
+                <p className="info-text">
+                    <span className="info-item info-cell start">⯁</span>{' '}
+                    Bounding nodes
+                </p>
+                <p className="info-text">
+                    <span className="info-item info-cell grey">•</span> Visited
+                    node
+                </p>
+                <p className="info-text">
+                    <span className="info-item info-cell white">•</span>{' '}
+                    Unvisited node
+                </p>
+                <p className="info-text">
+                    <span className="info-item info-cell black">•</span> Block
+                    node
+                </p>
+                <p className="info-text">
+                    <span className="info-item info-cell path-found">•</span>{' '}
+                    Path found
+                </p>
+            </div>
+            <div className="mobile-hide">
+                {(status === 0 || status === 5 || !status) && (
+                    <p id='hint' className="hint-text">state: select a starting node.</p>
+                )}
+                {status === 1 && (
+                    <p id='hint' className="hint-text">state: select a target node.</p>
+                )}
+                {status === 3 && (
+                    <p id='hint' className="hint-text">state: clear or reset the field.</p>
+                )}
+                {status > 1 && status !== 5 && status !== 3 && (
+                    <p id='hint' className="hint-text">
+                        state: add some block or visualize.
+                    </p>
+                )}
+            </div>
         </div>
     );
 };

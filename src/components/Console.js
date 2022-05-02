@@ -8,6 +8,9 @@ const Console = ({ track }) => {
             button.classList.add('disabled');
             if (button.id === 'visualize') {
                 button.classList.add('btn-disabled');
+                button.classList.add('hide');
+                var loader = document.getElementById('loader-cont');
+                loader.classList.remove('hide')
             }
         });
     };
@@ -19,6 +22,9 @@ const Console = ({ track }) => {
             button.classList.remove('disabled');
             if (button.id === 'visualize') {
                 button.classList.remove('btn-disabled');
+                button.classList.remove('hide');
+                var loader = document.getElementById('loader-cont');
+                loader.classList.add('hide')
             }
         });
     };
@@ -29,7 +35,7 @@ const Console = ({ track }) => {
         for (let i = 1; i < track.historyLength - 1; i++) {
             setTimeout(function () {
                 var element = document.getElementById(track.history[i].id);
-                element.classList.add('grey');
+                element.childNodes[0].classList.add('grey');
                 if (i === track.historyLength - 2) {
                     for (let i = 0; i < track.pathLength - 1; i++) {
                         setTimeout(function () {
