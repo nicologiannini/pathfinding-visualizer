@@ -3,7 +3,7 @@ import React from 'react';
 const Console = ({ track }) => {
     const disableButton = () => {
         var buttons = document.getElementsByClassName('button');
-        Array.prototype.slice.call(buttons, 0).forEach(function (button) {
+        Array.prototype.slice.call(buttons, 0).forEach((button) => {
             button.setAttribute('disabled', '');
             button.classList.add('disabled');
             if (button.id === 'visualize') {
@@ -17,7 +17,7 @@ const Console = ({ track }) => {
 
     const enableButton = () => {
         var buttons = document.getElementsByClassName('button');
-        Array.prototype.slice.call(buttons, 0).forEach(function (button) {
+        Array.prototype.slice.call(buttons, 0).forEach((button) => {
             button.removeAttribute('disabled');
             button.classList.remove('disabled');
             if (button.id === 'visualize') {
@@ -55,11 +55,11 @@ const Console = ({ track }) => {
         disableButton();
         var elements = [];
         elements = document.getElementsByClassName('grey');
-        Array.prototype.slice.call(elements, 0).forEach(function (element) {
+        Array.prototype.slice.call(elements, 0).forEach((element) => {
             element.classList.remove('grey');
         });
         elements = document.getElementsByClassName('yellow');
-        Array.prototype.slice.call(elements, 0).forEach(function (element) {
+        Array.prototype.slice.call(elements, 0).forEach((element) => {
             element.classList.remove('yellow');
         });
         enableButton();

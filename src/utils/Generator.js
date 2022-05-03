@@ -1,8 +1,7 @@
-import seed30x50JSON from './data/seed30x50.json';
-import seed15x15JSON from './data/seed15x15.json';
+import seed30x50JSON from '../data/seed30x50.json';
+import seed15x15JSON from '../data/seed15x15.json';
 
 export class Generator {
-    constructor() {}
 
     createGridBlock = (n, m) => {
         var check = [];
@@ -65,7 +64,7 @@ export class Generator {
         return validated;
     };
 
-    generateRandomGrid = (n, m, status, setGrid, setStatus) => {
+    generateMaze = (n, m, status, setGrid, setStatus) => {
         if (status === 0) {
             var seed = null
             if(n === 30 && m === 50){
@@ -147,7 +146,7 @@ export class Generator {
             }
 
             setGrid(seed);
-            setStatus(5);
+            setStatus(4);
         }
     };
 }

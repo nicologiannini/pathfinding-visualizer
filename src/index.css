@@ -24,7 +24,7 @@
     border-radius: 100%;
     position: relative;
     margin: 0 auto;
-    transition: all .1s ease;
+    transition: all 0.1s ease;
 }
 
 @keyframes spin {
@@ -48,10 +48,16 @@
         transform: scale(1);
     }
     50% {
-        transform: scale(2);
+        transform: scale(1.8);
     }
-    80% {
+    100% {
         transform: scale(1);
+    }
+}
+
+@keyframes burn {
+    0% {
+        color: #ff4713;
     }
 }
 
@@ -99,13 +105,14 @@ body {
 }
 
 .controls-cont {
+    width: 100%;
     margin: auto 0;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     font-family: 'Roboto Slab', sans-serif;
-    min-height: 140px;
-    padding: 32px 0;
+    min-height: 100px;
+    padding: 24px 0;
 }
 
 .controls {
@@ -115,6 +122,7 @@ body {
     color: #111;
     margin: auto 0;
     height: 60px;
+    font-size: 16px;
 }
 
 .console {
@@ -122,18 +130,13 @@ body {
     align-items: left;
     justify-content: space-between;
     color: rgb(0, 0, 0);
-    height: 15vh;
-    width: 100%;
-    font-size: 14px;
-    line-height: 10px;
-    font-family: 'Courier New', Courier, monospace;
     overflow: auto;
 }
 
 .button {
     cursor: pointer;
     font-weight: 500;
-    transition: all .1s ease;
+    transition: all 0.1s ease;
 }
 
 .btn-black {
@@ -178,33 +181,42 @@ body {
 }
 
 .container {
-    margin-right: auto;
-    margin-left: auto;
-    min-height: 100vh;
+    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-width: 900px;
+    min-height: 540px;
+    align-items: center;
 }
 
 .field {
     border: 1px solid #111;
     background-color: #111;
+    width: 900px;
+    height: 540px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5vw;
+    overflow: overlay;
+    justify-content: center;
 }
 
-.cell {
+.node {
     display: inline-block;
     background-color: #ffffff;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     padding: 0;
     color: #ffffff;
 }
 
-.innercell {
-    height: 20px;
-    width: 20px;
+.node-content {
+    height: 18px;
+    width: 18px;
     text-align: center;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 18px;
 }
 
 .controls-info {
@@ -217,8 +229,8 @@ body {
 
 .info-text {
     text-align: center;
-    line-height: 18px;
     font-size: 14px;
+    line-height: 18px;
     margin-right: 25px;
 }
 
@@ -226,11 +238,13 @@ body {
     border: 1px solid #111;
 }
 
-.info-cell {
+.sample-node {
     display: inline-block;
     height: 18px;
     width: 18px;
     padding: 0;
+    font-size: 16px;
+    line-height: 18px;
 }
 
 .hint-text {
@@ -258,9 +272,7 @@ body {
 
 .grey {
     color: #000;
-    animation-fill-mode: backwards;
-    animation-name: bounce;
-    animation-duration: .5s;
+    animation: bounce .5s, burn .75s;
     animation-timing-function: ease-out;
 }
 
@@ -280,6 +292,7 @@ body {
 
 .block {
     display: block;
+    height: 100%;
 }
 
 .btn-disabled {
@@ -298,6 +311,9 @@ body {
     justify-content: center;
 }
 
+.max-width{
+    width: 100%;
+}
 
 /* Poster */
 
@@ -306,7 +322,7 @@ body {
     font-weight: 300;
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     backdrop-filter: blur(6px);
     display: flex;
     justify-content: center;
@@ -316,8 +332,9 @@ body {
 .poster {
     display: flex;
     flex-direction: column;
-    height: 60vh;
-    min-width: 600px;
+    height: 55vh;
+    min-width: 400px;
+    width: 25vw;
     max-width: 600px;
     max-height: 800px;
     min-height: 400px;
@@ -326,19 +343,20 @@ body {
     border-radius: 5px;
     justify-content: space-between;
     align-items: center;
+    padding: 18px 6px;
 }
 
-.poster-content{
+.poster-content {
     display: flex;
     flex-direction: column;
     height: 80%;
     width: 90%;
     align-items: center;
     margin: auto 0;
+    overflow: overlay;
 }
 
 .poster-heading {
-    height: 10%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -367,10 +385,6 @@ body {
     align-items: center;
 }
 
-.poster-img {
-    height: 60px;
-}
-
 .poster-nav {
     display: flex;
     height: 10%;
@@ -392,7 +406,6 @@ body {
     color: #fff !important;
     border-radius: 5px;
     padding: 8px 16px;
-    margin: 16px 8px;
     font-size: 15px;
 }
 
@@ -400,14 +413,182 @@ body {
     cursor: pointer;
 }
 
+@media screen and (max-height: 880px) {
+    .loader {
+        width: 20px;
+        height: 20px;
+    }
 
+    .controls-cont {
+        padding: 12px 0;
+    }
 
-@media only screen and (max-width: 660px) {
+    .controls {
+        font-size: 14px;
+        height: 55px;
+    }
+
+    .container {
+        min-width: 750px;
+        min-height: 450px;
+    }
+
+    .field {
+        width: 750px;
+        height: 450px;
+    }
+
+    .node {
+        height: 15px;
+        width: 15px;
+    }
+
+    .node-content {
+        height: 15px;
+        width: 15px;
+        font-size: 13px;
+        line-height: 15px;
+    }
+
+    .info-text {
+        text-align: center;
+        font-size: 13px;
+        line-height: 15px;
+        margin-right: 20px;
+    }
+    
+    .sample-node {
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        padding: 0;
+        font-size: 13px;
+        line-height: 15px;
+    }
+    
+    .hint-text {
+        font-size: 12px;
+    }
+
+    .poster-title {
+        font-size: 20px;
+    }
+    
+    .poster-number {
+        font-size: 14px;
+    }
+    
+    .poster-body {
+        font-size: 12px;
+    }
+
+    .poster-button {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .loader {
+        width: 16px;
+        height: 16px;
+    }
+
+    .controls-cont {
+        padding: 12px 0;
+    }
+
+    .controls {
+        font-size: 12px;
+        height: 50px;
+    }
+
+    .container {
+        min-width: 600px;
+        min-height: 360px;
+    }
+
+    .field {
+        width: 600px;
+        height: 360px;
+    }
+
+    .node {
+        height: 12px;
+        width: 12px;
+    }
+
+    .node-content {
+        height: 12px;
+        width: 12px;
+        font-size: 10.5px;
+        line-height: 12px;
+    }
+
+    .info-text {
+        text-align: center;
+        font-size: 10.5px;
+        line-height: 12px;
+        margin-right: 15px;
+    }
+    
+    .sample-node {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        padding: 0;
+        font-size: 10.5px;
+        line-height: 12px;
+    }
+    
+    .hint-text {
+        font-size: 10px;
+    }
+
+    .poster-title {
+        font-size: 18px;
+    }
+    
+    .poster-number {
+        font-size: 12px;
+    }
+    
+    .poster-body {
+        font-size: 11px;
+    }
+
+    .poster-button {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
     .controls-info {
         display: none;
     }
 
     .mobile-hide {
         display: none;
+    }
+
+    .container {
+        min-width: 270px;
+        min-height: 270px;
+    }
+
+    .field {
+        width: 270px;
+        height: 270px;
+    }
+
+    .node {
+        height: 18px;
+        width: 18px;
+    }
+
+    .node-content {
+        height: 18px;
+        width: 18px;
+        font-size: 16px;
+        line-height: 18px;
     }
 }

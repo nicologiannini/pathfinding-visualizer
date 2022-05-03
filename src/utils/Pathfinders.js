@@ -1,5 +1,44 @@
 export class Pathfinders {
-    constructor() {}
+    getPath = (finder, n, m, status, grid, start, end, setTrack, setStatus) => {
+        switch (finder) {
+            case 1:
+                this.breadthFirstSearch(
+                    n,
+                    m,
+                    status,
+                    grid,
+                    start,
+                    setTrack,
+                    setStatus
+                );
+                break;
+            case 2:
+                this.depthFirstSearch(
+                    n,
+                    m,
+                    status,
+                    grid,
+                    start,
+                    setTrack,
+                    setStatus
+                );
+                break;
+            case 3:
+                this.aStarSearch(
+                    n,
+                    m,
+                    status,
+                    grid,
+                    start,
+                    end,
+                    setTrack,
+                    setStatus
+                );
+                break;
+            default:
+                break;
+        }
+    };
 
     createCheckGrid = (n, m, grid) => {
         var check = [];

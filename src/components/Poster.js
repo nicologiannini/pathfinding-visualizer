@@ -67,12 +67,6 @@ const Poster = ({}) => {
                                 You will be able to select them from the
                                 settings bar.
                             </p>
-                            <div className="poster-img-cont">
-                                <img
-                                    className="poster-img"
-                                    src="/assets/asset-2.gif"
-                                ></img>
-                            </div>
                         </div>
                     </div>
                 )}
@@ -90,13 +84,6 @@ const Poster = ({}) => {
                                 adding blocks to see how the different
                                 algorithms will unravel to find a solution.
                             </p>
-                            <div className="poster-img-cont">
-                                <img
-                                    className="poster-img"
-                                    style={{ height: 180, margin: 24}}
-                                    src="/assets/astar.gif"
-                                ></img>
-                            </div>
                             <p>
                                 Other options will be available from the
                                 settings bar, to clean and reset the field or to
@@ -127,7 +114,7 @@ const Poster = ({}) => {
                         Skip
                     </p>
                     <div className="poster-nav-option">
-                        <p className="poster-button" onClick={() => prev()}>
+                        <p className="poster-button" style={{marginRight: 8}} onClick={() => prev()}>
                             Prev
                         </p>
                         <p className="poster-button" onClick={() => next()}>

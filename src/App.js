@@ -1,11 +1,21 @@
-import Cell from './components/Cell';
+import { useState, useEffect } from 'react';
+import Node from './components/Node';
 import Controls from './components/Controls';
 import Console from './components/Console';
-import Pathfinders from './pathfinders';
-import Generator from './generator';
-import { useState, useEffect } from 'react';
+import Helper from './utils/Helper';
+import Generator from './utils/Generator';
+import Pathfinders from './utils/Pathfinders';
 
 const App = () => {
+    /*
+    status:
+        0: Empty grid
+        1: Starting node selected
+        2: End node selected
+        3: Path found
+        4: Random maze generated
+    */
+
     const [status, setStatus] = useState(0);
     const [grid, setGrid] = useState([]);
     const [start, setStart] = useState(null);
@@ -18,8 +28,14 @@ const App = () => {
     });
     const [N, setN] = useState(30);
     const [M, setM] = useState(50);
+
+    // Libraries
+
+    const HELPER = new Helper();
     const GENERATOR = new Generator();
     const PATHFINDERS = new Pathfinders();
+
+    // Document data
 
     var mouseDown = false;
     document.onmousedown = function () {
@@ -34,23 +50,11 @@ const App = () => {
         setM(15);
     }
 
+    // Functions
+
     const init = (refresh) => {
         if (status === 0 || refresh) {
-            var field = [];
-            for (var i = 0; i < N; i++) {
-                var row = [];
-                for (var j = 0; j < M; j++) {
-                    var cell = {
-                        id: M * i + j,
-                        x: j,
-                        y: i,
-                        status: 'default',
-                        path: [],
-                    };
-                    row.push(cell);
-                }
-                field.push(row);
-            }
+            var field = HELPER.buildDefaultGrid(N, M);
             setTrack({
                 path: [],
                 pathLength: 0,
@@ -64,144 +68,72 @@ const App = () => {
     };
 
     const cleanGrid = () => {
-        grid.forEach(function(row){
-            row.forEach(function(item){
-                item.path = []
-            })
-        })
+        HELPER.cleanGrid(grid);
     };
 
     const getPath = (finder) => {
-        switch (finder) {
-            case 1:
-                PATHFINDERS.breadthFirstSearch(
-                    N,
-                    M,
-                    status,
-                    grid,
-                    start,
-                    setTrack,
-                    setStatus
-                );
-                break;
-            case 2:
-                PATHFINDERS.depthFirstSearch(
-                    N,
-                    M,
-                    status,
-                    grid,
-                    start,
-                    setTrack,
-                    setStatus
-                );
-                break;
-            case 3:
-                PATHFINDERS.aStarSearch(
-                    N,
-                    M,
-                    status,
-                    grid,
-                    start,
-                    end,
-                    setTrack,
-                    setStatus
-                );
-                break;
-            default:
-                break;
-        }
+        PATHFINDERS.getPath(
+            finder,
+            N,
+            M,
+            status,
+            grid,
+            start,
+            end,
+            setTrack,
+            setStatus
+        );
     };
 
-    const generateGrid = () => {
-        GENERATOR.generateRandomGrid(N, M, status, setGrid, setStatus);
+    const generateMaze = () => {
+        GENERATOR.generateMaze(N, M, status, setGrid, setStatus);
     };
 
-    const triggerClick = (x, y, reloadCell) => {
-        switch (status) {
-            case 0:
-            case 5:
-                if (grid[y][x].status === 'default') {
-                    grid[y][x].status = 'start';
-                    setStart(grid[y][x]);
-                    setStatus(1);
-                }
-                break;
-            case 1:
-                if (grid[y][x].status === 'default') {
-                    grid[y][x].status = 'finish';
-                    setEnd(grid[y][x]);
-                    setStatus(2);
-                } else if (grid[y][x].status === 'start') {
-                    grid[y][x].status = 'default';
-                    setStart(null);
-                    setStatus(5);
-                }
-                break;
-            case 2:
-                if (grid[y][x].status === 'default') {
-                    grid[y][x].status = 'block';
-                } else if (grid[y][x].status === 'block') {
-                    grid[y][x].status = 'default';
-                } else if (grid[y][x].status === 'finish') {
-                    grid[y][x].status = 'default';
-                    setEnd(null);
-                    setStatus(1);
-                }
-                break;
-            default:
-                break;
-        }
-        reloadCell(grid[y][x].status);
+    const triggerClick = (x, y, reloadNode) => {
+        HELPER.triggerClick(
+            x,
+            y,
+            reloadNode,
+            status,
+            grid,
+            setStart,
+            setEnd,
+            setStatus
+        );
     };
 
-    const triggerDrag = (x, y, reloadCell) => {
-        if (mouseDown && status === 2) {
-            if (grid[y][x].status === 'default') {
-                grid[y][x].status = 'block';
-            } else if (grid[y][x].status === 'block') {
-                grid[y][x].status = 'default';
-            }
-            reloadCell(grid[y][x].status);
-        }
+    const triggerDrag = (x, y, reloadNode) => {
+        HELPER.triggerDrag(x, y, reloadNode, mouseDown, status, grid);
     };
 
     useEffect(() => {
         init();
     }, []);
 
+    // Render
+
     return (
         <div className="dash">
-            <div
-                className="container"
-                style={{
-                    minWidth: M * 20 + 2,
-                    maxWidth: M * 20 + 2,
-                    minHeight: N * 20 + 2,
-                    maxHeight: 980
-                }}
-            >
+            <div className="container">
                 <Controls
                     status={status}
                     getPath={getPath}
                     updateStatus={setStatus}
                     refresh={init}
-                    generateGrid={generateGrid}
+                    generateMaze={generateMaze}
                     cleanGrid={cleanGrid}
                     setTrack={setTrack}
                 />
                 {status === 0 && (
-                    <div
-                        className="field"
-                        style={{ width: M * 20, minHeight: N * 20 }}
-                    >
+                    <div className="field">
                         {grid.map((row) =>
-                            row.map((cell) => (
-                                <Cell
-                                    key={cell.id}
-                                    id={cell.id}
-                                    x={cell.x}
-                                    y={cell.y}
-                                    status={cell.status}
+                            row.map((node) => (
+                                <Node
+                                    key={node.id}
+                                    id={node.id}
+                                    x={node.x}
+                                    y={node.y}
+                                    status={node.status}
                                     triggerDrag={triggerDrag}
                                     triggerClick={triggerClick}
                                 />
@@ -212,13 +144,13 @@ const App = () => {
                 {status !== 0 && (
                     <div className="field">
                         {grid.map((row) =>
-                            row.map((cell) => (
-                                <Cell
-                                    key={cell.id}
-                                    id={cell.id}
-                                    x={cell.x}
-                                    y={cell.y}
-                                    status={cell.status}
+                            row.map((node) => (
+                                <Node
+                                    key={node.id}
+                                    id={node.id}
+                                    x={node.x}
+                                    y={node.y}
+                                    status={node.status}
                                     triggerDrag={triggerDrag}
                                     triggerClick={triggerClick}
                                 />

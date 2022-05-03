@@ -6,7 +6,7 @@ const Controls = ({
     getPath,
     updateStatus,
     refresh,
-    generateGrid,
+    generateMaze,
     setTrack,
     cleanGrid,
 }) => {
@@ -14,7 +14,7 @@ const Controls = ({
     const [sample, setSample] = useState({ seed: 0 });
 
     const clear = () => {
-        if (status == 3) {
+        if (status === 3) {
             cleanGrid();
             setTrack({
                 path: [],
@@ -38,7 +38,7 @@ const Controls = ({
 
     useEffect(() => {
         if (sample.seed !== 0) {
-            generateGrid();
+            generateMaze();
         }
     }, [sample]);
 
@@ -57,7 +57,7 @@ const Controls = ({
                     {finder === 1 && (
                         <button
                             id="finder"
-                            className="value center button text-blue"
+                            className="value center button max-width"
                             onClick={() => setFinder(2)}
                         >
                             Breadth-first search
@@ -66,7 +66,7 @@ const Controls = ({
                     {finder === 2 && (
                         <button
                             id="finder"
-                            className="value center button"
+                            className="value center button max-width"
                             onClick={() => setFinder(3)}
                         >
                             Depth-first search
@@ -75,7 +75,7 @@ const Controls = ({
                     {finder === 3 && (
                         <button
                             id="finder"
-                            className="value center button"
+                            className="value center button max-width"
                             onClick={() => setFinder(1)}
                         >
                             A* search
@@ -113,38 +113,41 @@ const Controls = ({
             </div>
             <div className="controls-info">
                 <p className="info-text">
-                    <span className="info-item info-cell start">⯁</span>{' '}
-                    Bounding nodes
+                    <span className="info-item sample-node start">⯁</span> Bounding nodes
                 </p>
                 <p className="info-text">
-                    <span className="info-item info-cell grey">•</span> Visited
+                    <span className="info-item sample-node grey">•</span> Visited
                     node
                 </p>
                 <p className="info-text">
-                    <span className="info-item info-cell white">•</span>{' '}
-                    Unvisited node
+                    <span className="info-item sample-node white">•</span> Unvisited node
                 </p>
                 <p className="info-text">
-                    <span className="info-item info-cell black">•</span> Block
+                    <span className="info-item sample-node black">•</span> Block
                     node
                 </p>
                 <p className="info-text">
-                    <span className="info-item info-cell path-found">•</span>{' '}
-                    Path found
+                    <span className="info-item sample-node path-found">•</span> Path found
                 </p>
             </div>
             <div className="mobile-hide">
-                {(status === 0 || status === 5 || !status) && (
-                    <p id='hint' className="hint-text">state: select a starting node.</p>
+                {(status === 0 || status === 4 || !status) && (
+                    <p id="hint" className="hint-text">
+                        state: select a starting node.
+                    </p>
                 )}
                 {status === 1 && (
-                    <p id='hint' className="hint-text">state: select a target node.</p>
+                    <p id="hint" className="hint-text">
+                        state: select a target node.
+                    </p>
                 )}
                 {status === 3 && (
-                    <p id='hint' className="hint-text">state: clear or reset the field.</p>
+                    <p id="hint" className="hint-text">
+                        state: clear or reset the field.
+                    </p>
                 )}
-                {status > 1 && status !== 5 && status !== 3 && (
-                    <p id='hint' className="hint-text">
+                {status > 1 && status !== 4 && status !== 3 && (
+                    <p id="hint" className="hint-text">
                         state: add some block or visualize.
                     </p>
                 )}
