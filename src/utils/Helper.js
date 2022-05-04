@@ -9,7 +9,7 @@ export class Helper {
                     y: i,
                     x: j,
                     status: 'default',
-                    path: [],
+                    route: [],
                 };
                 row.push(node);
             }
@@ -21,7 +21,7 @@ export class Helper {
     cleanGrid = (grid) => {
         grid.forEach((row) => {
             row.forEach((item) => {
-                item.path = [];
+                item.route = [];
             });
         });
     };
