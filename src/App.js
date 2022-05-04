@@ -11,7 +11,7 @@ const App = () => {
     status:
         0: Empty grid
         1: Starting node selected
-        2: End node selected
+        2: Target node selected
         3: Path found
         4: Random maze generated
     */
@@ -19,15 +19,15 @@ const App = () => {
     const [status, setStatus] = useState(0);
     const [grid, setGrid] = useState([]);
     const [start, setStart] = useState(null);
-    const [end, setEnd] = useState(null);
-    const [track, setTrack] = useState({
-        path: [],
-        pathLength: 0,
-        history: [],
-        historyLength: 0,
+    const [target, setTarget] = useState(null);
+    const [path, setPath] = useState({
+        nodes: [],
+        length: 0,
+        visited: [],
+        visitedLength: 0,
     });
-    const [N, setN] = useState(30);
-    const [M, setM] = useState(50);
+    const [rows, setRows] = useState(30);
+    const [columns, setColumns] = useState(50);
 
     // Libraries
 
@@ -45,25 +45,25 @@ const App = () => {
         mouseDown = false;
     };
 
-    if (window.screen.availWidth < 600 && N !== 15 && M !== 15) {
-        setN(15);
-        setM(15);
+    if (window.screen.availWidth < 600 && rows !== 15 && columns !== 15) {
+        setRows(15);
+        setColumns(15);
     }
 
     // Functions
 
     const init = (refresh) => {
         if (status === 0 || refresh) {
-            var field = HELPER.buildDefaultGrid(N, M);
-            setTrack({
-                path: [],
-                pathLength: 0,
-                history: [],
-                historyLength: 0,
+            var field = HELPER.buildDefaultGrid(rows, columns);
+            setPath({
+                nodes: [],
+                length: 0,
+                visited: [],
+                visitedLength: 0,
             });
             setGrid(field);
             setStart(null);
-            setEnd(null);
+            setTarget(null);
         }
     };
 
@@ -74,36 +74,36 @@ const App = () => {
     const getPath = (finder) => {
         PATHFINDERS.getPath(
             finder,
-            N,
-            M,
             status,
             grid,
+            rows,
+            columns,
             start,
-            end,
-            setTrack,
+            target,
+            setPath,
             setStatus
         );
     };
 
     const generateMaze = () => {
-        GENERATOR.generateMaze(N, M, status, setGrid, setStatus);
+        GENERATOR.generateMaze(status, rows, columns, setGrid, setStatus);
     };
 
-    const triggerClick = (x, y, reloadNode) => {
+    const triggerClick = (y, x, reloadNode) => {
         HELPER.triggerClick(
-            x,
-            y,
-            reloadNode,
             status,
             grid,
+            y,
+            x,
+            reloadNode,
             setStart,
-            setEnd,
+            setTarget,
             setStatus
         );
     };
 
-    const triggerDrag = (x, y, reloadNode) => {
-        HELPER.triggerDrag(x, y, reloadNode, mouseDown, status, grid);
+    const triggerDrag = (y, x, reloadNode) => {
+        HELPER.triggerDrag(status, grid, y, x, reloadNode, mouseDown);
     };
 
     useEffect(() => {
@@ -122,7 +122,7 @@ const App = () => {
                     refresh={init}
                     generateMaze={generateMaze}
                     cleanGrid={cleanGrid}
-                    setTrack={setTrack}
+                    updatePath={setPath}
                 />
                 {status === 0 && (
                     <div className="field">
@@ -131,8 +131,8 @@ const App = () => {
                                 <Node
                                     key={node.id}
                                     id={node.id}
-                                    x={node.x}
                                     y={node.y}
+                                    x={node.x}
                                     status={node.status}
                                     triggerDrag={triggerDrag}
                                     triggerClick={triggerClick}
@@ -148,8 +148,8 @@ const App = () => {
                                 <Node
                                     key={node.id}
                                     id={node.id}
-                                    x={node.x}
                                     y={node.y}
+                                    x={node.x}
                                     status={node.status}
                                     triggerDrag={triggerDrag}
                                     triggerClick={triggerClick}
@@ -158,7 +158,7 @@ const App = () => {
                         )}
                     </div>
                 )}
-                <Console track={track} />
+                <Console path={path} />
             </div>
         </div>
     );

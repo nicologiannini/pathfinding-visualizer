@@ -1,13 +1,13 @@
 export class Helper {
-    buildDefaultGrid = (n, m) => {
+    buildDefaultGrid = (rows, columns) => {
         var field = [];
-        for (var i = 0; i < n; i++) {
+        for (var i = 0; i < rows; i++) {
             var row = [];
-            for (var j = 0; j < m; j++) {
+            for (var j = 0; j < columns; j++) {
                 var node = {
-                    id: m * i + j,
-                    x: j,
+                    id: i.toString() + '-' + j.toString(),
                     y: i,
+                    x: j,
                     status: 'default',
                     path: [],
                 };
@@ -15,24 +15,23 @@ export class Helper {
             }
             field.push(row);
         }
-
         return field;
     };
 
     cleanGrid = (grid) => {
-        grid.forEach(function (row) {
-            row.forEach(function (item) {
+        grid.forEach((row) => {
+            row.forEach((item) => {
                 item.path = [];
             });
         });
     };
 
     triggerClick = (
-        x,
-        y,
-        reloadNode,
         status,
         grid,
+        y,
+        x,
+        reloadNode,
         setStart,
         setEnd,
         setStatus
@@ -74,7 +73,7 @@ export class Helper {
         reloadNode(grid[y][x].status);
     };
 
-    triggerDrag = (x, y, reloadNode, mouseDown, status, grid) => {
+    triggerDrag = (status, grid, y, x, reloadNode, mouseDown) => {
         if (mouseDown && status === 2) {
             if (grid[y][x].status === 'default') {
                 grid[y][x].status = 'block';

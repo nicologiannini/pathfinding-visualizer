@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Node = ({ id, x, y, status, triggerClick, triggerDrag }) => {
+const Node = ({ id, y, x, status, triggerClick, triggerDrag }) => {
     const [nodeStatus, setNodeStatus] = useState(status);
 
     const reloadNode = (target) => {
@@ -14,10 +14,10 @@ const Node = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     className="node-content"
                     key={id}
                     id={id}
-                    onMouseOver={() => triggerDrag(x, y, reloadNode)}
-                    onClick={() => triggerClick(x, y, reloadNode)}
+                    onMouseOver={() => triggerDrag(y, x, reloadNode)}
+                    onClick={() => triggerClick(y, x, reloadNode)}
                 >
-                    <span className='block'>•</span>
+                    <span className="block">•</span>
                 </div>
             )}
             {nodeStatus === 'start' && (
@@ -25,9 +25,9 @@ const Node = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     className="node-content start"
                     key={id}
                     id={id}
-                    onClick={() => triggerClick(x, y, reloadNode)}
+                    onClick={() => triggerClick(y, x, reloadNode)}
                 >
-                    <span className='block'>⯁</span>
+                    <span className="block">⯁</span>
                 </div>
             )}
             {nodeStatus === 'finish' && (
@@ -35,9 +35,9 @@ const Node = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     className="node-content finish"
                     key={id}
                     id={id}
-                    onClick={() => triggerClick(x, y, reloadNode)}
+                    onClick={() => triggerClick(y, x, reloadNode)}
                 >
-                    <span className='block'>⯁</span>
+                    <span className="block">⯁</span>
                 </div>
             )}
             {nodeStatus === 'block' && (
@@ -45,10 +45,10 @@ const Node = ({ id, x, y, status, triggerClick, triggerDrag }) => {
                     className="node-content black"
                     key={id}
                     id={id}
-                    onMouseOver={() => triggerDrag(x, y, reloadNode)}
-                    onClick={() => triggerClick(x, y, reloadNode)}
+                    onMouseOver={() => triggerDrag(y, x, reloadNode)}
+                    onClick={() => triggerClick(y, x, reloadNode)}
                 >
-                    <span className='block'>•</span>
+                    <span className="block">•</span>
                 </div>
             )}
         </div>

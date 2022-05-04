@@ -2,12 +2,11 @@ import seed30x50JSON from '../data/seed30x50.json';
 import seed15x15JSON from '../data/seed15x15.json';
 
 export class Generator {
-
-    createGridBlock = (n, m) => {
+    createBlockGrid = (rows, columns) => {
         var check = [];
-        for (var i = 0; i < n; i++) {
+        for (var i = 0; i < rows; i++) {
             var row = [];
-            for (var j = 0; j < m; j++) {
+            for (var j = 0; j < columns; j++) {
                 var cell = {
                     status: 'block',
                 };
@@ -19,19 +18,20 @@ export class Generator {
         return check;
     };
 
-    validateOption = (n, m, i, j, check) => {
+    validateOption = (rows, columns, i, j, check) => {
         var validated = true;
 
         var neighbors = [];
-        if (i + 1 < m) neighbors.push(check[j][i + 1]);
-        if (j + 1 < n && i + 1 < m) neighbors.push(check[j + 1][i + 1]);
-        if (j + 1 < n) neighbors.push(check[j + 1][i]);
-        if (j + 1 < n && i - 1 >= 0) neighbors.push(check[j + 1][i - 1]);
+        if (i + 1 < columns) neighbors.push(check[j][i + 1]);
+        if (j + 1 < rows && i + 1 < columns)
+            neighbors.push(check[j + 1][i + 1]);
+        if (j + 1 < rows) neighbors.push(check[j + 1][i]);
+        if (j + 1 < rows && i - 1 >= 0) neighbors.push(check[j + 1][i - 1]);
         if (i - 1 >= 0) neighbors.push(check[j][i - 1]);
         if (j - 1 >= 0 && i - 1 >= 0) neighbors.push(check[j - 1][i - 1]);
         if (j - 1 >= 0) neighbors.push(check[j - 1][i]);
-        if (j - 1 >= 0 && i + 1 < m) neighbors.push(check[j - 1][i + 1]);
-        if (i + 1 < m) neighbors.push(check[j][i + 1]); // workround
+        if (j - 1 >= 0 && i + 1 < columns) neighbors.push(check[j - 1][i + 1]);
+        if (i + 1 < columns) neighbors.push(check[j][i + 1]); // workround
 
         var visitedCount = 0;
         var consecutiveVisited = 0;
@@ -64,15 +64,15 @@ export class Generator {
         return validated;
     };
 
-    generateMaze = (n, m, status, setGrid, setStatus) => {
+    generateMaze = (status, rows, columns, setGrid, setStatus) => {
         if (status === 0) {
-            var seed = null
-            if(n === 30 && m === 50){
+            var seed = null;
+            if (rows === 30 && columns === 50) {
                 seed = JSON.parse(JSON.stringify(seed30x50JSON));
             } else {
                 seed = JSON.parse(JSON.stringify(seed15x15JSON));
             }
-            var check = this.createGridBlock(n, m, seed);
+            var check = this.createBlockGrid(rows, columns, seed);
             var history = [];
 
             var queue = [];
@@ -88,22 +88,25 @@ export class Generator {
                 var choices = [];
 
                 if (p.y - 1 >= 0 && check[p.y - 1][p.x].status === 'block') {
-                    if (this.validateOption(n, m, p.x, p.y - 1, check))
+                    if (this.validateOption(rows, columns, p.x, p.y - 1, check))
                         choices.push('north');
                 }
 
                 if (p.x - 1 >= 0 && check[p.y][p.x - 1].status === 'block') {
-                    if (this.validateOption(n, m, p.x - 1, p.y, check))
+                    if (this.validateOption(rows, columns, p.x - 1, p.y, check))
                         choices.push('east');
                 }
 
-                if (p.y + 1 < n && check[p.y + 1][p.x].status === 'block') {
-                    if (this.validateOption(n, m, p.x, p.y + 1, check))
+                if (p.y + 1 < rows && check[p.y + 1][p.x].status === 'block') {
+                    if (this.validateOption(rows, columns, p.x, p.y + 1, check))
                         choices.push('south');
                 }
 
-                if (p.x + 1 < m && check[p.y][p.x + 1].status === 'block') {
-                    if (this.validateOption(n, m, p.x + 1, p.y, check))
+                if (
+                    p.x + 1 < columns &&
+                    check[p.y][p.x + 1].status === 'block'
+                ) {
+                    if (this.validateOption(rows, columns, p.x + 1, p.y, check))
                         choices.push('west');
                 }
 

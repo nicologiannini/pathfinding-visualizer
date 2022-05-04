@@ -114,7 +114,11 @@ const Poster = ({}) => {
                         Skip
                     </p>
                     <div className="poster-nav-option">
-                        <p className="poster-button" style={{marginRight: 8}} onClick={() => prev()}>
+                        <p
+                            className="poster-button"
+                            style={{ marginRight: 8 }}
+                            onClick={() => prev()}
+                        >
                             Prev
                         </p>
                         <p className="poster-button" onClick={() => next()}>

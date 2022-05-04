@@ -1,37 +1,47 @@
 export class Pathfinders {
-    getPath = (finder, n, m, status, grid, start, end, setTrack, setStatus) => {
+    getPath = (
+        finder,
+        status,
+        grid,
+        rows,
+        columns,
+        start,
+        target,
+        setPath,
+        setStatus
+    ) => {
         switch (finder) {
             case 1:
                 this.breadthFirstSearch(
-                    n,
-                    m,
                     status,
                     grid,
+                    rows,
+                    columns,
                     start,
-                    setTrack,
+                    setPath,
                     setStatus
                 );
                 break;
             case 2:
                 this.depthFirstSearch(
-                    n,
-                    m,
                     status,
                     grid,
+                    rows,
+                    columns,
                     start,
-                    setTrack,
+                    setPath,
                     setStatus
                 );
                 break;
             case 3:
                 this.aStarSearch(
-                    n,
-                    m,
                     status,
                     grid,
+                    rows,
+                    columns,
                     start,
-                    end,
-                    setTrack,
+                    target,
+                    setPath,
                     setStatus
                 );
                 break;
@@ -40,11 +50,11 @@ export class Pathfinders {
         }
     };
 
-    createCheckGrid = (n, m, grid) => {
-        var check = [];
-        for (var i = 0; i < n; i++) {
+    createValidationGrid = (grid, rows, columns) => {
+        var validationGrid = [];
+        for (var i = 0; i < rows; i++) {
             var row = [];
-            for (var j = 0; j < m; j++) {
+            for (var j = 0; j < columns; j++) {
                 var cell = {
                     status: false,
                 };
@@ -56,15 +66,23 @@ export class Pathfinders {
                 }
                 row.push(cell);
             }
-            check.push(row);
+            validationGrid.push(row);
         }
 
-        return check;
+        return validationGrid;
     };
 
-    breadthFirstSearch = (n, m, status, grid, start, setTrack, setStatus) => {
+    breadthFirstSearch = (
+        status,
+        grid,
+        rows,
+        columns,
+        start,
+        setPath,
+        setStatus
+    ) => {
         if (status === 2) {
-            var check = this.createCheckGrid(n, m, grid);
+            var check = this.createValidationGrid(grid, rows, columns);
             var history = [];
 
             var source = start;
@@ -79,12 +97,12 @@ export class Pathfinders {
 
                 if (p.status === 'finish') {
                     var run = {
-                        path: p.path,
-                        pathLength: p.path.length,
-                        history: history,
-                        historyLength: history.length,
+                        nodes: p.path,
+                        length: p.path.length,
+                        visited: history,
+                        visitedLength: history.length,
                     };
-                    setTrack(run);
+                    setPath(run);
                     setStatus(3);
                 }
 
@@ -104,7 +122,7 @@ export class Pathfinders {
                     check[p.y][p.x - 1].status = true;
                 }
 
-                if (p.y + 1 < n && check[p.y + 1][p.x].status === false) {
+                if (p.y + 1 < rows && check[p.y + 1][p.x].status === false) {
                     next = grid[p.y + 1][p.x];
                     next.path.push(p);
                     next.path = next.path.concat(p.path);
@@ -112,7 +130,7 @@ export class Pathfinders {
                     check[p.y + 1][p.x].status = true;
                 }
 
-                if (p.x + 1 < m && check[p.y][p.x + 1].status === false) {
+                if (p.x + 1 < columns && check[p.y][p.x + 1].status === false) {
                     next = grid[p.y][p.x + 1];
                     next.path.push(p);
                     next.path = next.path.concat(p.path);
@@ -123,16 +141,24 @@ export class Pathfinders {
         }
     };
 
-    depthFirstSearch = (n, m, status, grid, start, setTrack, setStatus) => {
+    depthFirstSearch = (
+        status,
+        grid,
+        rows,
+        columns,
+        start,
+        setPath,
+        setStatus
+    ) => {
         var isRunning = true;
         const search = (p) => {
             history.push(p);
             if (p.status !== 'finish') {
                 var neighbors = [];
-                if (p.y + 1 < n && check[p.y + 1][p.x].status === false) {
+                if (p.y + 1 < rows && check[p.y + 1][p.x].status === false) {
                     neighbors.push(grid[p.y + 1][p.x]);
                 }
-                if (p.x + 1 < m && check[p.y][p.x + 1].status === false) {
+                if (p.x + 1 < columns && check[p.y][p.x + 1].status === false) {
                     neighbors.push(grid[p.y][p.x + 1]);
                 }
                 if (p.y - 1 >= 0 && check[p.y - 1][p.x].status === false) {
@@ -155,26 +181,35 @@ export class Pathfinders {
                 }
             } else {
                 var run = {
-                    path: p.path,
-                    pathLength: p.path.length,
-                    history: history,
-                    historyLength: history.length,
+                    nodes: p.path,
+                    length: p.path.length,
+                    visited: history,
+                    visitedLength: history.length,
                 };
-                setTrack(run);
+                setPath(run);
                 setStatus(3);
                 isRunning = false;
             }
         };
 
         if (status === 2) {
-            var check = this.createCheckGrid(n, m, grid);
+            var check = this.createValidationGrid(grid, rows, columns);
             var history = [];
 
             search(start, check);
         }
     };
 
-    aStarSearch = (n, m, status, grid, start, end, setTrack, setStatus) => {
+    aStarSearch = (
+        status,
+        grid,
+        rows,
+        columns,
+        start,
+        end,
+        setPath,
+        setStatus
+    ) => {
         var isRunning = true;
         start.f = 0;
         start.g = 0;
@@ -182,7 +217,7 @@ export class Pathfinders {
         var closedList = [];
 
         if (status === 2) {
-            var check = this.createCheckGrid(n, m, grid);
+            var check = this.createValidationGrid(grid, rows, columns);
             var history = [start];
 
             while (openList.length > 0 && isRunning) {
@@ -197,7 +232,7 @@ export class Pathfinders {
                 });
 
                 var down =
-                    q.y + 1 < n && check[q.y + 1][q.x].status === false
+                    q.y + 1 < rows && check[q.y + 1][q.x].status === false
                         ? grid[q.y + 1][q.x]
                         : null;
                 var up =
@@ -205,7 +240,7 @@ export class Pathfinders {
                         ? grid[q.y - 1][q.x]
                         : null;
                 var right =
-                    q.x + 1 < m && check[q.y][q.x + 1].status === false
+                    q.x + 1 < columns && check[q.y][q.x + 1].status === false
                         ? grid[q.y][q.x + 1]
                         : null;
                 var left =
@@ -226,12 +261,12 @@ export class Pathfinders {
                         next.path = next.path.concat(q.path);
                         if (next.status === 'finish') {
                             var run = {
-                                path: next.path,
-                                pathLength: next.path.length,
-                                history: history,
-                                historyLength: history.length,
+                                nodes: next.path,
+                                length: next.path.length,
+                                visited: history,
+                                visitedLength: history.length,
                             };
-                            setTrack(run);
+                            setPath(run);
                             setStatus(3);
                             isRunning = false;
                         } else {

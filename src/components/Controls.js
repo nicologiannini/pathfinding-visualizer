@@ -7,20 +7,20 @@ const Controls = ({
     updateStatus,
     refresh,
     generateMaze,
-    setTrack,
     cleanGrid,
+    updatePath,
 }) => {
     const [finder, setFinder] = useState(1);
-    const [sample, setSample] = useState({ seed: 0 });
+    const [seed, setSeed] = useState({ value: 0 });
 
     const clear = () => {
         if (status === 3) {
             cleanGrid();
-            setTrack({
-                path: [],
-                pathLength: 0,
-                history: [],
-                historyLength: 0,
+            updatePath({
+                nodes: [],
+                length: 0,
+                visited: [],
+                visitedLength: 0,
             });
             updateStatus(2);
         }
@@ -28,7 +28,7 @@ const Controls = ({
 
     const resetAndGenerate = () => {
         reset();
-        setSample({ seed: 'random' });
+        setSeed({ value: 'random' });
     };
 
     const reset = () => {
@@ -37,10 +37,10 @@ const Controls = ({
     };
 
     useEffect(() => {
-        if (sample.seed !== 0) {
+        if (seed.value !== 0) {
             generateMaze();
         }
-    }, [sample]);
+    }, [seed]);
 
     return (
         <div className="controls-cont">
@@ -113,21 +113,24 @@ const Controls = ({
             </div>
             <div className="controls-info">
                 <p className="info-text">
-                    <span className="info-item sample-node start">⯁</span> Bounding nodes
+                    <span className="info-item sample-node start">⯁</span>{' '}
+                    Bounding nodes
                 </p>
                 <p className="info-text">
-                    <span className="info-item sample-node grey">•</span> Visited
-                    node
+                    <span className="info-item sample-node grey">•</span>{' '}
+                    Visited node
                 </p>
                 <p className="info-text">
-                    <span className="info-item sample-node white">•</span> Unvisited node
+                    <span className="info-item sample-node white">•</span>{' '}
+                    Unvisited node
                 </p>
                 <p className="info-text">
                     <span className="info-item sample-node black">•</span> Block
                     node
                 </p>
                 <p className="info-text">
-                    <span className="info-item sample-node path-found">•</span> Path found
+                    <span className="info-item sample-node path-found">•</span>{' '}
+                    Path found
                 </p>
             </div>
             <div className="mobile-hide">

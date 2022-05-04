@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Console = ({ track }) => {
+const Console = ({ path }) => {
     const disableButton = () => {
         var buttons = document.getElementsByClassName('button');
         Array.prototype.slice.call(buttons, 0).forEach((button) => {
@@ -10,7 +10,7 @@ const Console = ({ track }) => {
                 button.classList.add('btn-disabled');
                 button.classList.add('hide');
                 var loader = document.getElementById('loader-cont');
-                loader.classList.remove('hide')
+                loader.classList.remove('hide');
             }
         });
     };
@@ -24,29 +24,29 @@ const Console = ({ track }) => {
                 button.classList.remove('btn-disabled');
                 button.classList.remove('hide');
                 var loader = document.getElementById('loader-cont');
-                loader.classList.add('hide')
+                loader.classList.add('hide');
             }
         });
     };
 
-    if (track.historyLength > 0) {
+    if (path.visitedLength > 0) {
         disableButton();
 
-        for (let i = 1; i < track.historyLength - 1; i++) {
+        for (let i = 1; i < path.visitedLength - 1; i++) {
             setTimeout(function () {
-                var element = document.getElementById(track.history[i].id);
+                var element = document.getElementById(path.visited[i].id);
                 element.childNodes[0].classList.add('grey');
-                if (i === track.historyLength - 2) {
-                    for (let i = 0; i < track.pathLength - 1; i++) {
+                if (i === path.visitedLength - 2) {
+                    for (let j = 0; j < path.length - 1; j++) {
                         setTimeout(function () {
                             var element = document.getElementById(
-                                track.path[i].id
+                                path.nodes[j].id
                             );
                             element.classList.add('yellow');
-                            if (i === track.pathLength - 2) {
+                            if (j === path.length - 2) {
                                 enableButton();
                             }
-                        }, i * 25);
+                        }, j * 25);
                     }
                 }
             }, i * 10);
