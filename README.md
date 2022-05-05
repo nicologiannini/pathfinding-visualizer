@@ -26,7 +26,7 @@ f += cross * 0.001
 ```
 The result is that this code will give a slight preference to a path that is along a straight line from start to destination.
 
-![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/35083414/159975594-7faf376e-c4e8-4f7f-82e6-4bbb8716debd.gif)
+![visualizer](https://user-images.githubusercontent.com/35083414/166980264-2e84b0c3-b1c8-4a0d-9785-51ed1546c8b2.gif)
 
 Please make all pull requests with new features or bugfixes to the `main`
 branch. We are formatting code using [Prettier](https://prettier.io/), so you
