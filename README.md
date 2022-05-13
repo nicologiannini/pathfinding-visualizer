@@ -6,7 +6,7 @@ At the moment it all seems to be standing up with react@17.0.2 although my exper
 
 For each run you need to indicate *start* and *target* points, blocks are optional.
 
-* **Generate**, loads fields with pre-populated blocks random generated (*guaranteed path*).
+* **Generate**, loads a field with pre-populated blocks random generated (*guaranteed path*).
 * **Selector**, displays the one currently selected.
 * **Visualize**, draws all visited nodes and the path found on the field.
 * **Clear field**, deletes the previous path, if any, without changing the field.
