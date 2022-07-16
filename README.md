@@ -2,6 +2,8 @@
 
 [Try it](https://visualizer.giannini.dev)
 
+![promo-gif](https://user-images.githubusercontent.com/35083414/179354575-10484e2e-fcb4-4c50-b49f-f70e1abd0db8.gif)
+
 At the moment it all seems to be standing up with react@17.0.2 although my experience with it is very limited, all pathfinding algorithms implemented operate in 4 directions (*n, w, s ,e*), the field is fixed to be a 30x50 grid.
 
 For each run you need to indicate *start* and *target* points, blocks are optional.
