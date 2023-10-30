@@ -19,7 +19,3 @@ For each run you need to indicate *start* and *target* points, blocks are option
 In some grid maps there are many paths with the same length, A* could explore all the paths with the same value f (*the variable it uses for searching*), instead of just one. A quick way to solve this problem is to add a [tie-breaking](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#breaking-ties) cross-product to heuristic.
 
 The result is that this code will give a slight preference to a path that is along a straight line from start to destination.
-
-Please make all pull requests with new features or bugfixes to the `main`
-branch. We are formatting code using [Prettier](https://prettier.io/), so you
-should run `npm run format` on your code before making a pull request.
